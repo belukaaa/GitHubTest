@@ -16,23 +16,29 @@ import com.raywenderlich.ticky.repository.Factory
 import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
-class MainActivity : AppCompatActivity(),OnboardingFragment.ButtonClicked , FirstScreenFragment.Click , TaskAddingFragment.BttnClicked
-, TaskAddingFragment.Task_addingButton , HomeTaskScreenFragment.HomeTaskScreenButton {
+class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
+    FirstScreenFragment.Click, TaskAddingFragment.BttnClicked, TaskAddingFragment.Task_addingButton,
+    HomeTaskScreenFragment.HomeTaskScreenButton {
 
 
     private lateinit var factory: Factory
     private lateinit var mTaskViewModel: TaskViewModel
     private lateinit var taskieDao: TaskieDao
-    private lateinit var taskDB : TaskieDatabase
+    private lateinit var taskDB: TaskieDatabase
     private lateinit var homeTaskScreenFragment: HomeTaskScreenFragment
-    private lateinit var onboardingFrag : OnboardingFragment
-    private lateinit var FirstScreenFrag : FirstScreenFragment
-    private lateinit var mySharedPref : MySharedPreference
-    private lateinit var addTaskFrag : TaskAddingFragment
+    private lateinit var onboardingFrag: OnboardingFragment
+    private lateinit var FirstScreenFrag: FirstScreenFragment
+    private lateinit var mySharedPref: MySharedPreference
+    private lateinit var addTaskFrag: TaskAddingFragment
     private lateinit var repository: TaskieRepository
-    private lateinit var adapter : TodoListAdapter
+    private lateinit var adapter: TodoListAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,11 +54,10 @@ class MainActivity : AppCompatActivity(),OnboardingFragment.ButtonClicked , Firs
         addTaskFrag = TaskAddingFragment.getTaskFragInstance()
         homeTaskScreenFragment = HomeTaskScreenFragment.getHomeTaskScrenFragment()
         adapter = TodoListAdapter()
-       initViewModel(this)
+        initViewModel(this)
 
 
         startingApp()
-
 
 
     }
@@ -68,21 +73,27 @@ class MainActivity : AppCompatActivity(),OnboardingFragment.ButtonClicked , Firs
     }
 
 
-
     private fun startingApp() {
         if (mySharedPref.getWhenAplicationFirstOpened()) {
+            CoroutineScope(Dispatchers.IO).launch {
+                val list = mTaskViewModel.getTaskList().toString()
+                withContext(Main) {
+                    if (list.isEmpty()) {
+                        firstScreen()
+                    } else {
+                        homeScreen()
+                    }
 
-                if (mTaskViewModel.getRowCount().equals(0) ) {
-                    firstScreen()
-                } else {
-                    homeScreen()
                 }
 
-        }else {
-            onboarrding()
+            }
 
         }
+        else {
+            onboarrding()
+        }
     }
+
     private fun onboarrding() {
         supportFragmentManager
             .beginTransaction()
@@ -90,13 +101,15 @@ class MainActivity : AppCompatActivity(),OnboardingFragment.ButtonClicked , Firs
             .commit()
         mySharedPref.saveWhenAplicationFirstOpened(true)
     }
-    private fun firstScreen(){
+
+    private fun firstScreen() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_id, FirstScreenFrag)
             .commit()
     }
-    private fun homeScreen(){
+
+    private fun homeScreen() {
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.frame_id, homeTaskScreenFragment)

@@ -14,8 +14,10 @@ interface TaskieDao {
     @Query("SELECT * FROM tasks ORDER BY taskId ASC ")
     fun readAllData(): LiveData<List<Taskie>>
 
-    @Query("SELECT * FROM tasks ORDER BY title ASC")
-    suspend fun getRowCount() : List<Taskie>
+
+
+//    @Query("SELECT * FROM tasks")
+//    suspend fun getRowCountt(): ArrayList<Taskie>
 
     @Delete
     suspend fun deleteUser(task: List<Taskie>)

@@ -15,34 +15,18 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
     inner class SelectTaskViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
-        var selectedCheckbox = itemView.selected_task
+        fun unSelect(task : Taskie ){
+            itemView.checkBox2.setOnClickListener {
 
-        fun unSelectView(task: Taskie) {
+                unselectedList.add(task)
+                selectedList.remove(task)
+                listener?.unSelectSelected(unselectedList)
+                notifyDataSetChanged()
 
-            val checkbox = itemView.checkBox2
-            checkbox.setOnCheckedChangeListener { _, _ ->
-                if (task.selected) {
-
-                    checkbox.isChecked = true
-                    task.selected = false
-                    selectedList.remove(task)
-                    unselectedList.add(task)
-                    listener?.unSelectSelected(unselectedList)
-
-                    notifyDataSetChanged()
-                }
-                else{
-                    task.selected = true
-                    unselectedList.remove(task)
-                    listener?.unSelectSelected(unselectedList)
-
-                    notifyDataSetChanged()
-
-                }
             }
 
-
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectTaskViewHolder {
@@ -58,10 +42,9 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
         val currentItem = (selectedList[position])
 
-        holder.unSelectView(currentItem)
-
-        holder.selectedCheckbox.text = currentItem.title
-
+        holder.itemView.checkBox2.isChecked = true
+        holder.itemView.selected_task.text = currentItem.title
+        holder.unSelect(currentItem)
 
 
     }
@@ -73,11 +56,6 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
         this.selectedList.addAll(task)
         notifyDataSetChanged()
 
-    }
-    fun unSelectData(task: List<Taskie>){
-        this.unselectedList.clear()
-        this.unselectedList.addAll(task)
-        notifyDataSetChanged()
     }
 
     var listener : unSelectListener ? = null

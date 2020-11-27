@@ -61,6 +61,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         adapter = TodoListAdapter()
+
         adapter.setOnCheckListener(this)
 
 
@@ -436,7 +437,8 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         this.checkedList = list as ArrayList<Taskie>
 
-        selectedAdapter.setSelectedData(list)
+        selectedAdapter.setSelectedData(checkedList)
+
 
     }
 
@@ -444,7 +446,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         this.selectedList = list as ArrayList<Taskie>
 
-        adapter.setDatka(list)
+
 
     }
 }

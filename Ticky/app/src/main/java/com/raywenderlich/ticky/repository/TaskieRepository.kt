@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.raywenderlich.ticky.Taskie
 import com.raywenderlich.ticky.db.dao.TaskieDao
 import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers.Main
 
 class TaskieRepository(private val taskDao: TaskieDao) {
 
@@ -18,11 +19,10 @@ class TaskieRepository(private val taskDao: TaskieDao) {
        }
     }
 
-    fun getRowCount() {
-        CoroutineScope(Dispatchers.IO).launch {
-             taskDao.getRowCount()
-        }
-    }
+//    suspend fun getRowCountt() : ArrayList<Taskie> {
+//        return taskDao.getRowCountt()
+//    }
+
 
     suspend fun deleteUser(task: List<Taskie>){
         taskDao.deleteUser(task)

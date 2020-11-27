@@ -30,4 +30,5 @@
     <string name="completed">Completed</string>
     <string name="strike_text">1. <strike>StrikeThrough</strike> Using strike</string>
     <string name="firstscreentext">Add some tasks, don\'t make me bored</string>
+    <string name="type_your_text_here">Type your text here</string>
 </resources>

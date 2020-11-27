@@ -22,9 +22,13 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
             repository.addTask(task)
     }
 
-    fun getRowCount() {
-        return repository.getRowCount()
-    }
+//    suspend fun getRowCountt() : ArrayList<Taskie> {
+//        return repository.getRowCountt()
+//    }
+
+
+
+
 
     fun deleteUser(task: List<Taskie>){
         viewModelScope.launch ( Dispatchers.IO){

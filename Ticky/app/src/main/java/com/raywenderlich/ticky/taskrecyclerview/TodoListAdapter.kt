@@ -23,7 +23,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     private var checkedTaskList = ArrayList<Taskie>()
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun setData(task: Taskie) {
+        fun setData(task: Taskie , holder: TodoListViewHolder) {
             itemView.setOnLongClickListener {
                 if (!task.checked) {
                     task.checked = true
@@ -31,40 +31,33 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     itemView.linearLayout.setBackgroundResource(R.drawable.selected_item)
                     taskList1.add(task)
                     listener?.onChecked(taskList1)
-                    notifyDataSetChanged()
+
                 }
                 else {
                     task.checked = false
-
-                  //  itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
+                    holder.itemView.checkBox.isChecked = false
+                    itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     taskList1.remove(task)
                     listener?.onChecked(taskList1)
-                    notifyDataSetChanged()
+
                 }
+
                 true
             }
-        }
 
-        fun setCheckedData(task : Taskie)
-        {
-            val checkBox= itemView.checkBox
-            checkBox.setOnCheckedChangeListener { _, _ ->
-                if (!task.selected) {
-                    checkBox.isChecked = false
-                    task.selected = true
-                    checkedTaskList.add(task)
-                    taskList.remove(task)
-                    listener1?.unSelect(checkedTaskList)
-                    notifyDataSetChanged()
-                }else {
-                    task.selected = false
-                    checkedTaskList.remove(task)
-                    listener1?.unSelect(checkedTaskList)
-                    notifyDataSetChanged()
-                }
+            itemView.checkBox.setOnClickListener {
+
+                checkedTaskList.add(task)
+                taskList.remove(task)
+                listener1?.unSelect(checkedTaskList)
+
+                notifyDataSetChanged()
+
             }
-
         }
+
+
+
 
     }
 
@@ -81,14 +74,16 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
 
+
         val currentItem = (taskList[position])
 
 
 
         holder.itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
 
-        holder.setData(currentItem)
-        holder.setCheckedData(currentItem)
+        holder.itemView.checkBox.isChecked = false
+        holder.setData(currentItem , holder)
+
 
 
 
@@ -145,13 +140,16 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
     fun setData(task: List<Taskie>) {
-
+        this.taskList.clear()
         this.taskList.addAll(task)
         notifyDataSetChanged()
     }
-    fun setDatka(task: List<Taskie>) {
+    fun setDatka(task : Taskie) {
 
-        this.taskList.addAll(task)
+
+
+
+
         notifyDataSetChanged()
     }
 
