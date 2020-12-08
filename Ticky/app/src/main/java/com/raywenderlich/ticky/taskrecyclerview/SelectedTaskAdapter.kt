@@ -18,9 +18,10 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
         fun unSelect(task : Taskie ){
             itemView.checkBox2.setOnClickListener {
 
-                unselectedList.add(task)
-                selectedList.remove(task)
-                listener?.unSelectSelected(unselectedList)
+//                unselectedList.add(task)
+//                selectedList.remove(task)
+//                listener?.unSelectSelected(unselectedList)
+                task.selected = false
                 notifyDataSetChanged()
 
             }

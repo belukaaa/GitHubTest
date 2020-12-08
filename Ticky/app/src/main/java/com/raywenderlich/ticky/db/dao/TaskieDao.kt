@@ -14,6 +14,11 @@ interface TaskieDao {
     @Query("SELECT * FROM tasks ORDER BY taskId ASC ")
     fun readAllData(): LiveData<List<Taskie>>
 
+    @Query("SELECT * FROM tasks WHERE selected = 1")
+    fun readSelectedData() : LiveData<List<Taskie>>
+
+    @Query("SELECT * FROM tasks WHERE selected = 0")
+    fun readUnselectedData() : LiveData<List<Taskie>>
 
 
 //    @Query("SELECT * FROM tasks")

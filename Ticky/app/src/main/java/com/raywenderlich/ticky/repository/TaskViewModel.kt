@@ -16,6 +16,13 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
      fun getTaskList() : LiveData<List<Taskie>> {
          return repository.getData()
      }
+    fun getSelectedData() : LiveData<List<Taskie>>{
+        return repository.getSelectedData()
+    }
+    fun getUnSelectedData() : LiveData<List<Taskie>> {
+        return repository.getUnSelectedData()
+    }
+
 
 
     fun addTask(task: Taskie) {

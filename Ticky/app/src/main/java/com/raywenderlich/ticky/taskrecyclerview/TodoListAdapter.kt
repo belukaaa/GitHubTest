@@ -46,10 +46,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
             }
 
             itemView.checkBox.setOnClickListener {
-
-                checkedTaskList.add(task)
-                taskList.remove(task)
-                listener1?.unSelect(checkedTaskList)
+//
+//                checkedTaskList.add(task)
+//                taskList.remove(task)
+//                listener1?.unSelect(checkedTaskList)
+                task.selected = true
 
                 notifyDataSetChanged()
 

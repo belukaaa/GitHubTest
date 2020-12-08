@@ -11,7 +11,12 @@ class TaskieRepository(private val taskDao: TaskieDao) {
     fun getData() : LiveData<List<Taskie>> {
        return taskDao.readAllData()
    }
-
+    fun getSelectedData() : LiveData<List<Taskie>> {
+        return  taskDao.readSelectedData()
+    }
+    fun getUnSelectedData() : LiveData<List<Taskie>>{
+        return taskDao.readUnselectedData()
+    }
 
      fun addTask(task : Taskie) {
        CoroutineScope(Dispatchers.IO).launch {

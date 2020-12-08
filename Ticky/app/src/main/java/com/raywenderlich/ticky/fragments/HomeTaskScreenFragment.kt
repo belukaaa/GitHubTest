@@ -82,9 +82,15 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         recyclerView.layoutManager = LinearLayoutManager(context)
 
 
-        mTaskViewModel.getTaskList().observe(viewLifecycleOwner, Observer { user ->
+//        mTaskViewModel.getTaskList().observe(viewLifecycleOwner, Observer { user ->
+//            adapter.setData(user)
+//
+//        })
+        mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer { user ->
             adapter.setData(user)
-
+        })
+        mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner , Observer { user ->
+            selectedAdapter.setSelectedData(user)
         })
 
 
