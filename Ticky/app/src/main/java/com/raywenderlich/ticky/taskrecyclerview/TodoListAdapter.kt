@@ -32,6 +32,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     taskList1.add(task)
                     listener?.onChecked(taskList1)
 
+
                 }
                 else {
                     task.checked = false
@@ -39,7 +40,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     taskList1.remove(task)
                     listener?.onChecked(taskList1)
-
+                    notifyDataSetChanged()
                 }
 
                 true
@@ -63,11 +64,15 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
                 task.selected = true
 
-                listener2?.updateTask(task)
+                 listener2?.updateTask(task)
+
+
 
                 notifyDataSetChanged()
             }
         }
+
+
 
 
 
@@ -153,7 +158,9 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     override fun getItemId(position: Int): Long = position.toLong()
 
 
-
+    fun returnCheckedTasks() : ArrayList<Taskie> {
+        return taskList1
+    }
 
     fun setData(task: List<Taskie>) {
         this.taskList.clear()
@@ -162,14 +169,22 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     }
 
 
+    var listener22 : UpdateAllTasks? = null
     var listener2 : UpdateTask? = null
 
+    interface UpdateAllTasks {
+        fun updateAllTasks(list : ArrayList<Taskie>)
+    }
     interface UpdateTask {
         fun updateTask(task: Taskie)
+    }
+    fun updateAllTasks(listener22 : UpdateAllTasks){
+        this.listener22 = listener22
     }
     fun updateTask(listener2 : UpdateTask){
         this.listener2 = listener2
     }
+
 
 
     interface IOnClick {

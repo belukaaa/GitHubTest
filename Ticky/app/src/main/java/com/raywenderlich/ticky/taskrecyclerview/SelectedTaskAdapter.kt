@@ -28,6 +28,8 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
                 listener1?.updateTaskie(task)
 
+
+
                 notifyDataSetChanged()
 
             }

@@ -24,11 +24,12 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie{
+class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie  {
 
     private var list = ArrayList<Taskie>()
     private var checkedList = ArrayList<Taskie>()
     private var selectedList = ArrayList<Taskie>()
+    private var checkAllTasks = ArrayList<Taskie>()
 
     private lateinit var selectedTaskRecyclerView: RecyclerView
     private lateinit var recyclerView: RecyclerView
@@ -96,6 +97,10 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         delete_task_button.setOnClickListener {
                 mTaskViewModel.deleteUser(list)
+            list.forEach { task ->
+                task.checked = false
+
+            }
             hideDeleteDonebttns()
         }
 
@@ -109,10 +114,31 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
              })
             hideDeleteDonebttns()
         }
+
+
+
         done_button.setOnClickListener {
-            list.forEach { user ->
-                updateTask(user)
+//            checkedList.forEach { user ->
+//                user.selected = false
+//               mTaskViewModel.updateTask(user)
+//            }
+//            hideDeleteDonebttns()
+
+//         checkAllTasks = adapter.returnCheckedTasks()
+//
+//            checkAllTasks.forEach { task ->
+//                task.checked = true
+//                mTaskViewModel.updateTask(task)
+//            }
+//            adapter.notifyDataSetChanged()
+
+            list.forEach { task ->
+                task.selected = true
+                task.checked = false
+                mTaskViewModel.updateTask(task)
             }
+                adapter.notifyDataSetChanged()
+
             hideDeleteDonebttns()
         }
 
@@ -823,6 +849,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     override fun updateTaskie(task: Taskie) {
         mTaskViewModel.updateTask(task)
     }
+
 
 
 }
