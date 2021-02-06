@@ -45,15 +45,27 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                 true
             }
 
-            itemView.checkBox.setOnClickListener {
+
+
+//            itemView.checkBox.setOnClickListener {
+////
+////                checkedTaskList.add(task)
+////                taskList.remove(task)
+////                listener1?.unSelect(checkedTaskList)
+//                task.selected = true
 //
-//                checkedTaskList.add(task)
-//                taskList.remove(task)
-//                listener1?.unSelect(checkedTaskList)
+//                notifyDataSetChanged()
+//
+//            }
+        }
+        fun checkTask(task: Taskie){
+            itemView.checkBox.setOnClickListener {
+
                 task.selected = true
 
-                notifyDataSetChanged()
+                listener2?.updateTask(task)
 
+                notifyDataSetChanged()
             }
         }
 
@@ -76,9 +88,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
 
+
         val currentItem = (taskList[position])
 
 
+        holder.checkTask(currentItem)
 
         holder.itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
 
@@ -130,6 +144,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         }
 
 
+        holder.setIsRecyclable(false)
 
     }
 
@@ -145,16 +160,16 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         this.taskList.addAll(task)
         notifyDataSetChanged()
     }
-    fun setDatka(task : Taskie) {
 
 
+    var listener2 : UpdateTask? = null
 
-
-
-        notifyDataSetChanged()
+    interface UpdateTask {
+        fun updateTask(task: Taskie)
     }
-
-
+    fun updateTask(listener2 : UpdateTask){
+        this.listener2 = listener2
+    }
 
 
     interface IOnClick {

@@ -14,11 +14,17 @@ interface TaskieDao {
     @Query("SELECT * FROM tasks ORDER BY taskId ASC ")
     fun readAllData(): LiveData<List<Taskie>>
 
-    @Query("SELECT * FROM tasks WHERE selected = 1")
+    @Query("SELECT * FROM tasks WHERE selected = 0")
     fun readSelectedData() : LiveData<List<Taskie>>
 
-    @Query("SELECT * FROM tasks WHERE selected = 0")
+    @Query("SELECT * FROM tasks WHERE selected = 1")
     fun readUnselectedData() : LiveData<List<Taskie>>
+
+    @Query("SELECT * FROM tasks ORDER BY datetime ASC")
+    fun readTasksByDate() : LiveData<List<Taskie>>
+
+    @Query("SELECT * FROM tasks ORDER BY color")
+    fun readTasksByColor() : LiveData<List<Taskie>>
 
 
 //    @Query("SELECT * FROM tasks")
@@ -29,6 +35,12 @@ interface TaskieDao {
 
     @Query("DELETE FROM tasks")
     suspend fun deleteAllUsers()
+
+    @Update
+    fun updateTasks(task : Taskie)
+
+    @Update
+    fun updateSelectedTasks(Task : List<Taskie>)
 
 
 

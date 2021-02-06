@@ -6,12 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.ticky.R
 import com.raywenderlich.ticky.Taskie
+import com.raywenderlich.ticky.repository.TaskViewModel
 import kotlinx.android.synthetic.main.chechked_task_viewholder.view.*
 
 class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskViewHolder>() {
 
     private var selectedList = ArrayList<Taskie>()
     private var unselectedList = ArrayList<Taskie>()
+
 
     inner class SelectTaskViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
 
@@ -21,7 +23,11 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 //                unselectedList.add(task)
 //                selectedList.remove(task)
 //                listener?.unSelectSelected(unselectedList)
+
                 task.selected = false
+
+                listener1?.updateTaskie(task)
+
                 notifyDataSetChanged()
 
             }
@@ -48,6 +54,8 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
         holder.unSelect(currentItem)
 
 
+
+        holder.setIsRecyclable(false)
     }
 
     override fun getItemCount(): Int = selectedList.size
@@ -61,6 +69,14 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
     var listener : unSelectListener ? = null
 
+    var listener1 : updateTaskie ? = null
+
+    interface updateTaskie {
+        fun updateTaskie(task: Taskie)
+    }
+    fun setOnUpdateListener(listener: updateTaskie){
+        this.listener1 = listener
+    }
 
     interface unSelectListener {
         fun unSelectSelected(list: List<Taskie>)

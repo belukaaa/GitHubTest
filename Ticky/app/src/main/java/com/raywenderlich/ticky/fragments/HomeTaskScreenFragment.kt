@@ -2,9 +2,7 @@ package com.raywenderlich.ticky.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -20,14 +18,13 @@ import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import com.raywenderlich.ticky.taskrecyclerview.SelectedTaskAdapter
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
-import kotlinx.android.synthetic.main.first_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener{
+class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie{
 
     private var list = ArrayList<Taskie>()
     private var checkedList = ArrayList<Taskie>()
@@ -44,6 +41,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     private lateinit var repository: TaskieRepository
     private lateinit var mySharedPref : MySharedPreference
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,6 +51,8 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         initViewModel(view.context)
 
+
+
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,17 +61,13 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         adapter = TodoListAdapter()
-
         adapter.setOnCheckListener(this)
-
-
         adapter.setCheckedTaskListener(this)
-
-
+        adapter.updateTask(this)
 
         selectedAdapter = SelectedTaskAdapter()
         selectedAdapter.setOnCheckListener(this)
-
+        selectedAdapter.setOnUpdateListener(this)
 
         selectedTaskRecyclerView = view.checked_recycler
         selectedTaskRecyclerView.adapter = selectedAdapter
@@ -80,8 +76,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         recyclerView = view.recycle
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-
-
 //        mTaskViewModel.getTaskList().observe(viewLifecycleOwner, Observer { user ->
 //            adapter.setData(user)
 //
@@ -107,13 +101,32 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
          cancel_selecting.setOnClickListener{
              list.clear()
-             mTaskViewModel.getTaskList().observe(viewLifecycleOwner, Observer { user ->
+             mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer { user ->
                  adapter.setData(user)
              })
+             mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner , Observer { user ->
+                 selectedAdapter.setSelectedData(user)
+             })
+            hideDeleteDonebttns()
+        }
+        done_button.setOnClickListener {
+            list.forEach { user ->
+                updateTask(user)
+            }
             hideDeleteDonebttns()
         }
 
 
+        view.textView5.setOnClickListener {
+            var dialog = CustomDialogFragment()
+
+
+            dialog.show(childFragmentManager , "CustomDialog")
+
+
+
+
+        }
 
 
     }
@@ -149,37 +162,37 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
          if(month == 0) {
             datetime1.text = ("January,$year")
         }
-        if(month == 1) {
+        else if(month == 1) {
             datetime1.text = ("February,$year")
         }
-        if(month == 2) {
+        else if(month == 2) {
             datetime1.text = ("March,$year")
         }
-        if(month == 3) {
+        else if(month == 3) {
             datetime1.text = ("April,$year")
         }
-        if(month == 4) {
+        else if(month == 4) {
             datetime1.text = ("May,$year")
         }
-        if(month == 5) {
+        else if(month == 5) {
             datetime1.text = ("June,$year")
         }
-        if(month == 6) {
+        else if(month == 6) {
             datetime1.text = ("July,$year")
         }
-        if(month == 7) {
+        else if(month == 7) {
             datetime1.text = ("August,$year")
         }
-        if(month == 8) {
+        else if(month == 8) {
             datetime1.text = ("September,$year")
         }
-        if(month == 9) {
+        else if(month == 9) {
             datetime1.text = ("October,$year")
         }
-        if(month == 10) {
+        else if(month == 10) {
             datetime1.text = ("November,$year")
         }
-        if(month == 11){
+        else if(month == 11){
             datetime1.text = ("December,$year")
         }
 
@@ -276,6 +289,8 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         val dayOfWeek = c.get(Calendar.DAY_OF_WEEK)
         val dayOfMonth = c.get(Calendar.DAY_OF_MONTH)
 
+
+
         monday1.text = (dayOfMonth - 2).toString()
         tuesday1.text = (dayOfMonth - 1).toString()
         wednesday1.text = dayOfMonth.toString()
@@ -284,108 +299,453 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         saturday1.text = (dayOfMonth + 3).toString()
         sunday1.text = (dayOfMonth + 4).toString()
 
-        if (dayOfWeek == 0){
-            Monday1.text = "T"
-            monday21.text = "F"
-            monday41.text = "S"
-            monday51.text = "S"
-            monday61.text = "M"
-            monday71.text = "T"
-            monday81.text = "W"
-
+        if (dayOfMonth == 1 && month == 0  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        else if (dayOfWeek == 1 ){
-            Monday1.text = "F"
-            monday21.text = "S"
-            monday41.text = "S"
-            monday51.text = "M"
-            monday61.text = "T"
-            monday71.text = "W"
-            monday81.text = "T"
-
-        }
-        else if (dayOfWeek == 2 ){
-            Monday1.text = "S"
-            monday21.text = "S"
-            monday41.text = "M"
-            monday51.text = "T"
-            monday61.text = "W"
-            monday71.text = "T"
-            monday81.text = "F"
-        }
-        else if (dayOfWeek == 3 ){
-            Monday1.text = "S"
-            monday21.text = "M"
-            monday41.text = "T"
-            monday51.text = "W"
-            monday61.text = "T"
-            monday71.text = "F"
-            monday81.text = "S"
-        }else if (dayOfWeek == 4){
-            Monday1.text = "M"
-            monday21.text = "T"
-            monday41.text ="W"
-            monday51.text = "T"
-            monday61.text = "F"
-            monday71.text = "S"
-            monday81.text = "S"
-
-        }
-        else if (dayOfWeek == 5){
-            Monday1.text = "T"
-            monday21.text = "W"
-            monday41.text ="T"
-            monday51.text = "F"
-            monday61.text = "S"
-            monday71.text = "S"
-            monday81.text = "M"
-        }else if(dayOfWeek == 6){
-            Monday1.text = "W"
-            monday21.text = "T"
-            monday41.text = "F"
-            monday51.text = "S"
-            monday61.text = "S"
-            monday71.text = "M"
-            monday81.text = "T"
-
+        else if (dayOfMonth == 1 && month == 2  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
 
-        if(month == 0) {
-            datetime1.text = ("January,$year")
+        else if (dayOfMonth == 1 && month == 4  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        if(month == 1) {
-            datetime1.text = ("February,$year")
+
+        else if (dayOfMonth == 1 && month == 6  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        if(month == 2) {
-            datetime1.text = ("March,$year")
+
+        else if (dayOfMonth == 1 && month == 7  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        if(month == 3) {
-            datetime1.text = ("April,$year")
+
+        else if (dayOfMonth == 1 && month == 9  )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        if(month == 4) {
-            datetime1.text = ("May,$year")
+
+        else if (dayOfMonth == 1 && month == 11 )  {
+            monday1.text = "30"
+            tuesday1.text = "31"
         }
-        if(month == 5) {
-            datetime1.text = ("June,$year")
+        else if (dayOfMonth == 2 && month == 0  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 6) {
-            datetime1.text = ("July,$year")
+        else if (dayOfMonth == 2 && month == 2  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 7) {
-            datetime1.text = ("August,$year")
+
+        else if (dayOfMonth == 2 && month == 4  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 8) {
-            datetime1.text = ("September,$year")
+
+        else if (dayOfMonth == 2 && month == 6  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 9) {
-            datetime1.text = ("October,$year")
+
+        else if (dayOfMonth == 2 && month == 7  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 10) {
-            datetime1.text = ("November,$year")
+
+        else if (dayOfMonth == 2 && month == 9  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
-        if(month == 11){
-            datetime1.text = ("December,$year")
+
+        else if (dayOfMonth == 2 && month == 11  )  {
+            monday1.text = "31"
+            tuesday1.text = "1"
         }
+        else if (dayOfMonth == 1 && month == 1){
+            tuesday1.text = "28"
+            monday1.text = "27"
+        }
+        else if (dayOfMonth == 2 && month == 1){
+            tuesday1.text = "1"
+            monday1.text = "28"
+        }
+        else if (dayOfMonth == 1 && month == 3){
+            tuesday1.text = "30"
+            monday1.text = "29"
+        }
+        else if (dayOfMonth == 1 && month == 5){
+            tuesday1.text = "30"
+            monday1.text = "29"
+        }
+        else if (dayOfMonth == 1 && month == 8){
+            tuesday1.text = "30"
+            monday1.text = "29"
+        }
+        else if (dayOfMonth == 1 && month == 10){
+            tuesday1.text = "30"
+            monday1.text = "29"
+        }
+        else if (dayOfMonth == 2 && month == 3){
+            tuesday1.text = "1"
+            monday1.text = "30"
+        }
+        else if (dayOfMonth == 2 && month == 5){
+            tuesday1.text = "1"
+            monday1.text = "30"
+        }
+        else if (dayOfMonth == 2 && month == 8){
+            tuesday1.text = "1"
+            monday1.text = "30"
+        }
+        else if (dayOfMonth == 2 && month == 10){
+            tuesday1.text = "1"
+            monday1.text = "30"
+        }
+        else if (dayOfMonth == 28 && month == 0) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 2 ) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 4) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 6) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 7) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 9) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 11) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 29 && month == 0) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 2) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 4) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 6) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 7) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 9) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 11) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 30 && month == 0) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 2) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 4) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 6) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 7) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 9) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 11) {
+
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+
+        else if (dayOfMonth == 31 && month == 0) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 2) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 4) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 6) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 7) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 9) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 31 && month == 11) {
+
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if (dayOfMonth == 27 && month == 3) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 27 && month == 5) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 27 && month == 8) {
+            sunday1.text = "1"
+        }
+
+        else if (dayOfMonth == 27 && month == 10) {
+            sunday1.text = "1"
+        }
+        else if (dayOfMonth == 28 && month == 3) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 5) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 8) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+
+        else if (dayOfMonth == 28 && month == 10) {
+            sunday1.text = "2"
+            saturday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 3) {
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 5) {
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 8) {
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+        else if (dayOfMonth == 29 && month == 10) {
+            sunday1.text = "3"
+            saturday1.text = "2"
+            friday1.text = "1"
+        }
+        else if (dayOfMonth == 30 && month == 3) {
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 5) {
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 8) {
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+
+        else if (dayOfMonth == 30 && month == 10) {
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+        else if(dayOfMonth == 28 && month == 1){
+            sunday1.text = "4"
+            saturday1.text = "3"
+            friday1.text = "2"
+            thursday1.text = "1"
+        }
+
+
+        if (dayOfWeek == 0) {
+                Monday1.text = "T"
+                monday21.text = "F"
+                monday41.text = "S"
+                monday51.text = "S"
+                monday61.text = "M"
+                monday71.text = "T"
+                monday81.text = "W"
+
+            } else if (dayOfWeek == 1) {
+                Monday1.text = "F"
+                monday21.text = "S"
+                monday41.text = "S"
+                monday51.text = "M"
+                monday61.text = "T"
+                monday71.text = "W"
+                monday81.text = "T"
+
+            } else if (dayOfWeek == 2) {
+                Monday1.text = "S"
+                monday21.text = "S"
+                monday41.text = "M"
+                monday51.text = "T"
+                monday61.text = "W"
+                monday71.text = "T"
+                monday81.text = "F"
+            } else if (dayOfWeek == 3) {
+                Monday1.text = "S"
+                monday21.text = "M"
+                monday41.text = "T"
+                monday51.text = "W"
+                monday61.text = "T"
+                monday71.text = "F"
+                monday81.text = "S"
+            } else if (dayOfWeek == 4) {
+                Monday1.text = "M"
+                monday21.text = "T"
+                monday41.text = "W"
+                monday51.text = "T"
+                monday61.text = "F"
+                monday71.text = "S"
+                monday81.text = "S"
+
+            } else if (dayOfWeek == 5) {
+                Monday1.text = "T"
+                monday21.text = "W"
+                monday41.text = "T"
+                monday51.text = "F"
+                monday61.text = "S"
+                monday71.text = "S"
+                monday81.text = "M"
+            } else if (dayOfWeek == 6) {
+                Monday1.text = "W"
+                monday21.text = "T"
+                monday41.text = "F"
+                monday51.text = "S"
+                monday61.text = "S"
+                monday71.text = "M"
+                monday81.text = "T"
+
+            }
+
+            if (month == 0) {
+                datetime1.text = ("January,$year")
+            }
+            if (month == 1) {
+                datetime1.text = ("February,$year")
+            }
+            if (month == 2) {
+                datetime1.text = ("March,$year")
+            }
+            if (month == 3) {
+                datetime1.text = ("April,$year")
+            }
+            if (month == 4) {
+                datetime1.text = ("May,$year")
+            }
+            if (month == 5) {
+                datetime1.text = ("June,$year")
+            }
+            if (month == 6) {
+                datetime1.text = ("July,$year")
+            }
+            if (month == 7) {
+                datetime1.text = ("August,$year")
+            }
+            if (month == 8) {
+                datetime1.text = ("September,$year")
+            }
+            if (month == 9) {
+                datetime1.text = ("October,$year")
+            }
+            if (month == 10) {
+                datetime1.text = ("November,$year")
+            }
+            if (month == 11) {
+                datetime1.text = ("December,$year")
+            }
 
 
 
@@ -425,11 +785,11 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         selected_item_funcs.visibility = View.VISIBLE
 
     }
-    override fun onChecked(checkedList : List<Taskie>) {
-        this.list = checkedList as ArrayList<Taskie>
+    override fun onChecked(list : List<Taskie>) {
+        this.list = list as ArrayList<Taskie>
 
 
-        if (checkedList.isEmpty()) {
+        if (list.isEmpty()) {
             hideDeleteDonebttns()
         } else {
             showDeleteDonebtttns()
@@ -455,4 +815,14 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
     }
+
+    override fun updateTask(task : Taskie) {
+        mTaskViewModel.updateTask(task)
+    }
+
+    override fun updateTaskie(task: Taskie) {
+        mTaskViewModel.updateTask(task)
+    }
+
+
 }

@@ -31,4 +31,8 @@
     <string name="strike_text">1. <strike>StrikeThrough</strike> Using strike</string>
     <string name="firstscreentext">Add some tasks, don\'t make me bored</string>
     <string name="type_your_text_here">Type your text here</string>
+    <string name="sort_by_123">Sort by:</string>
+    <string name="date_added">Date added</string>
+    <string name="due_date">Due date</string>
+    <string name="color_label">Color label</string>
 </resources>

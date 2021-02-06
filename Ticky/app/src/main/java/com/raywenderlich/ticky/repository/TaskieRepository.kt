@@ -17,6 +17,12 @@ class TaskieRepository(private val taskDao: TaskieDao) {
     fun getUnSelectedData() : LiveData<List<Taskie>>{
         return taskDao.readUnselectedData()
     }
+    fun getTaskByDate() : LiveData<List<Taskie>>{
+        return taskDao.readTasksByDate()
+    }
+    fun getTasksByColor() : LiveData<List<Taskie>>{
+        return taskDao.readTasksByColor()
+    }
 
      fun addTask(task : Taskie) {
        CoroutineScope(Dispatchers.IO).launch {
@@ -36,6 +42,14 @@ class TaskieRepository(private val taskDao: TaskieDao) {
     suspend fun deleteAllUser() {
         taskDao.deleteAllUsers()
     }
+
+    fun updateTask(task: Taskie) {
+        CoroutineScope(Dispatchers.IO).launch{
+            taskDao.updateTasks(task)
+        }
+    }
+
+
 
 
 

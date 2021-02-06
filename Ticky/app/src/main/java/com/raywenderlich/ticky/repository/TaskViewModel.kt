@@ -22,11 +22,21 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
     fun getUnSelectedData() : LiveData<List<Taskie>> {
         return repository.getUnSelectedData()
     }
+    fun getTasksByDate() : LiveData<List<Taskie>> {
+        return repository.getTaskByDate()
+    }
+    fun getTasksByColor() : LiveData<List<Taskie>>{
+        return  repository.getTasksByColor()
+    }
 
 
 
     fun addTask(task: Taskie) {
             repository.addTask(task)
+    }
+
+    fun updateTask(task: Taskie) {
+        repository.updateTask(task)
     }
 
 //    suspend fun getRowCountt() : ArrayList<Taskie> {
@@ -47,5 +57,6 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
             repository.deleteAllUser()
         }
     }
+
 
 }
