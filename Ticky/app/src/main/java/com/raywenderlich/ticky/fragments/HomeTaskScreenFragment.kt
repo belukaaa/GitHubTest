@@ -77,10 +77,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         recyclerView = view.recycle
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
-//        mTaskViewModel.getTaskList().observe(viewLifecycleOwner, Observer { user ->
-//            adapter.setData(user)
-//
-//        })
+
         mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer { user ->
             adapter.setData(user)
         })
@@ -118,19 +115,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         done_button.setOnClickListener {
-//            checkedList.forEach { user ->
-//                user.selected = false
-//               mTaskViewModel.updateTask(user)
-//            }
-//            hideDeleteDonebttns()
 
-//         checkAllTasks = adapter.returnCheckedTasks()
-//
-//            checkAllTasks.forEach { task ->
-//                task.checked = true
-//                mTaskViewModel.updateTask(task)
-//            }
-//            adapter.notifyDataSetChanged()
 
             list.forEach { task ->
                 task.selected = true

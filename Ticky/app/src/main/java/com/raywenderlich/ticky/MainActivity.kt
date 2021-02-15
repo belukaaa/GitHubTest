@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         adapter = TodoListAdapter()
         initViewModel(this)
 
-
         startingApp()
 
 
@@ -72,20 +71,23 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         repository = TaskieRepository(taskieDao)
         factory = Factory(repository)
         mTaskViewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)
+        observe()
 
     }
 
+    private fun observe(){
+        mTaskViewModel.colorLIveData.observe(this, Observer {
+            if (it.isEmpty()){
+                firstScreen()
+            }
+        })
+    }
 
     private fun startingApp() {
         if (mySharedPref.getWhenAplicationFirstOpened()) {
             CoroutineScope(Dispatchers.IO).launch {
-                val list = mTaskViewModel.getTaskList().toString()
                 withContext(Main) {
-                    if (list.isEmpty()) {
-                        firstScreen()
-                    } else {
-                        homeScreen()
-                    }
+
 
                 }
 

@@ -2,6 +2,7 @@ package com.raywenderlich.ticky.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.raywenderlich.ticky.Taskie
@@ -11,7 +12,7 @@ import kotlinx.coroutines.*
 
 class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
 
-
+    var colorLIveData = repository.getTasksByColor()
 
      fun getTaskList() : LiveData<List<Taskie>> {
          return repository.getData()
@@ -25,9 +26,7 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
     fun getTasksByDate() : LiveData<List<Taskie>> {
         return repository.getTaskByDate()
     }
-    fun getTasksByColor() : LiveData<List<Taskie>>{
-        return  repository.getTasksByColor()
-    }
+
 
 
 

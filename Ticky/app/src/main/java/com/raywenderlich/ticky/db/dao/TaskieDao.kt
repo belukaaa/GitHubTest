@@ -23,7 +23,7 @@ interface TaskieDao {
     @Query("SELECT * FROM tasks ORDER BY datetime ASC")
     fun readTasksByDate() : LiveData<List<Taskie>>
 
-    @Query("SELECT * FROM tasks ORDER BY color")
+    @Query("SELECT * FROM tasks ORDER BY taskId ASC")
     fun readTasksByColor() : LiveData<List<Taskie>>
 
 
