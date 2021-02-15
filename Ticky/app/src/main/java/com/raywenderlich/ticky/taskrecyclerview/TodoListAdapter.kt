@@ -158,9 +158,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     override fun getItemId(position: Int): Long = position.toLong()
 
 
-    fun returnCheckedTasks() : ArrayList<Taskie> {
-        return taskList1
-    }
+
 
     fun setData(task: List<Taskie>) {
         this.taskList.clear()

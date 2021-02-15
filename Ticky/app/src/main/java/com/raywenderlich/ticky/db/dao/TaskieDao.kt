@@ -20,15 +20,11 @@ interface TaskieDao {
     @Query("SELECT * FROM tasks WHERE selected = 1")
     fun readUnselectedData() : LiveData<List<Taskie>>
 
-    @Query("SELECT * FROM tasks ORDER BY datetime ASC")
+    @Query("SELECT * FROM tasks ORDER BY dateLong ASC")
     fun readTasksByDate() : LiveData<List<Taskie>>
 
     @Query("SELECT * FROM tasks ORDER BY taskId ASC")
     fun readTasksByColor() : LiveData<List<Taskie>>
-
-
-//    @Query("SELECT * FROM tasks")
-//    suspend fun getRowCountt(): ArrayList<Taskie>
 
     @Delete
     suspend fun deleteUser(task: List<Taskie>)

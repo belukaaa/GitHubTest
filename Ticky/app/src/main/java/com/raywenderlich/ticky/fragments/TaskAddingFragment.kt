@@ -3,15 +3,13 @@ package com.raywenderlich.ticky.fragments
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
-import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.DatePicker
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -24,15 +22,16 @@ import com.raywenderlich.ticky.repository.TaskieRepository
 import kotlinx.android.synthetic.main.adding_activity_task.*
 import kotlinx.android.synthetic.main.adding_activity_task.view.*
 import kotlinx.android.synthetic.main.todo_list_view_holder.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     //ქვემოთ გაქ გადმოტანილი თურამეა აატყვნეინე ფრაგმენტის ზემოთ
     var TASK_COLOR : String = ""
     var TASK_DATE : String = ""
-
+    var TASK_DATE1 : Long? = null
 
     private lateinit var mTaskViewModel: TaskViewModel
     private lateinit var factory: com.raywenderlich.ticky.repository.Factory
@@ -76,6 +75,8 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         dateCalendar.visibility = INVISIBLE
         xoo.visibility = INVISIBLE
 
+        val input = view.Task_input.text.toString()
+
 
         view.calendar.setOnClickListener{
             getDate()
@@ -84,7 +85,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
         setColor()
 
-        view.button2.setOnClickListener {
+        view.saveButton.setOnClickListener {
             insertDataToDatabase()
             listener1?.taskAdd()
         }
@@ -113,70 +114,43 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     private fun setColor() : String {
         view?.oval1?.setOnClickListener {
             TASK_COLOR = "#ff453a"
-            println("yleqala $TASK_COLOR")
+           
         }
         view?.oval2?.setOnClickListener {
             TASK_COLOR = "#ff9f0c"
-            println("yleqala $TASK_COLOR")
+          
         }
         view?.oval3?.setOnClickListener {
             TASK_COLOR = "#ffd50c"
-            println("yleqala $TASK_COLOR")
+           
         }
         view?.oval4?.setOnClickListener {
             TASK_COLOR = "#32d74b"
-            println("yleqala $TASK_COLOR")
+            
         }
         view?.oval5?.setOnClickListener {
             TASK_COLOR = "#64d2ff"
-            println("yleqala $TASK_COLOR")
+          
         }
         view?.oval6?.setOnClickListener {
             TASK_COLOR = "#0984ff"
-            println("yleqala $TASK_COLOR")
+          
         }
         view?.oval7?.setOnClickListener {
             TASK_COLOR = "#5e5ce6"
-            println("yleqala $TASK_COLOR")
+            
         }
         view?.oval8?.setOnClickListener {
             println("yleqala $TASK_COLOR")
-            TASK_COLOR = "#bf5af2"
+           
         }
         view?.oval9?.setOnClickListener {
             TASK_COLOR = "#ff375f"
-            println("yleqala $TASK_COLOR")
+           
         }
 
         return TASK_COLOR
     }
-
-
-    private fun insertDataToDatabase()  {
-        val title = Task_input.text.toString()
-        val color = TASK_COLOR
-        val dateTime = TASK_DATE
-        val checked = false
-        val selected = false
-
-
-        if(title.isNotEmpty()){
-            val task = Taskie(0 , title , color , dateTime , checked , selected)
-            mTaskViewModel.addTask(task)
-            TASK_DATE = ""
-            TASK_COLOR = ""
-            Task_input.text.clear()
-            Toast.makeText(requireContext(), " ADDED" , Toast.LENGTH_LONG).show()
-
-        }
-    }
-
-    private var listener1 : Task_addingButton? = null
-    interface Task_addingButton{
-        fun taskAdd()
-    }
-
-
     private fun getDate() {
         val calendar : Calendar = Calendar.getInstance()
         val day = calendar.get(Calendar.DAY_OF_MONTH)
@@ -185,11 +159,38 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
         val datePickerDialog =
-            DatePickerDialog(requireContext(), this ,year , month , day  )
+            DatePickerDialog(requireContext(), this, year, month, day)
         datePickerDialog.show()
     }
 
 
+
+    private fun insertDataToDatabase()  {
+        val title = Task_input.text.toString()
+        val color = TASK_COLOR
+        val datetime = TASK_DATE
+        val checked = false
+        val selected = false
+        val dateLong = TASK_DATE1
+        
+
+
+
+        if(title.isNotEmpty()){
+            val task = Taskie(0, title, color, datetime, checked, selected , dateLong)
+            mTaskViewModel.addTask(task)
+            TASK_DATE = ""
+            TASK_COLOR = ""
+            Task_input.text.clear()
+            Toast.makeText(requireContext(), " ADDED", Toast.LENGTH_LONG).show()
+
+        }
+    }
+
+    private var listener1 : Task_addingButton? = null
+    interface Task_addingButton{
+        fun taskAdd()
+    }
 
     companion object {
         fun getTaskFragInstance(): TaskAddingFragment{
@@ -218,6 +219,24 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        val Calendar = Calendar.getInstance()
+        Calendar[year, month] = dayOfMonth
+
+//        val formatedDate = sdf.format(calendar.time)
+        Log.e("TAG", "Format date is ${Calendar.time}")
+        val givenDateString = Calendar.time.toString()
+        val sdf = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy")
+        try {
+            val mDate = sdf.parse(givenDateString)
+            val timeInMilliseconds = mDate.time
+            TASK_DATE1 = timeInMilliseconds
+            Log.e("TAG", "Format date is ${timeInMilliseconds}")
+        } catch (e: ParseException) {
+            e.printStackTrace()
+        }
+
+
+
 
         var myMonth = ""
 
@@ -271,7 +290,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
     }
-    private fun setColorToRound(color : String) {
+    private fun setColorToRound(color: String) {
         if (color == "#ff453a"){
             task_color_red.visibility = VISIBLE
         }

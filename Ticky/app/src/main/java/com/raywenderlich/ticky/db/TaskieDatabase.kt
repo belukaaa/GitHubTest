@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.raywenderlich.ticky.Taskie
 import com.raywenderlich.ticky.db.dao.TaskieDao
 
-const val DATABASE_VERSION = 4
+const val DATABASE_VERSION = 7
 const val DATABASE_NAME = "task_database"
 @Database(
     entities = [Taskie::class],

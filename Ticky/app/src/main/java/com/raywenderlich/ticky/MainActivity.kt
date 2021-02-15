@@ -2,23 +2,27 @@ package com.raywenderlich.ticky
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.RadioButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.ticky.db.TaskieDatabase
 import com.raywenderlich.ticky.db.dao.TaskieDao
-import com.raywenderlich.ticky.fragments.FirstScreenFragment
-import com.raywenderlich.ticky.fragments.HomeTaskScreenFragment
-import com.raywenderlich.ticky.fragments.OnboardingFragment
-import com.raywenderlich.ticky.fragments.TaskAddingFragment
+import com.raywenderlich.ticky.fragments.*
 import com.raywenderlich.ticky.repository.Factory
 import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
+import kotlinx.android.synthetic.main.dialog_fragment.*
+import kotlinx.android.synthetic.main.dialog_fragment.view.*
+import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -28,7 +32,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     FirstScreenFragment.Click, TaskAddingFragment.BttnClicked, TaskAddingFragment.Task_addingButton,
-    HomeTaskScreenFragment.HomeTaskScreenButton {
+    HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting {
 
 
     private lateinit var factory: Factory
@@ -41,7 +45,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     private lateinit var mySharedPref: MySharedPreference
     private lateinit var addTaskFrag: TaskAddingFragment
     private lateinit var repository: TaskieRepository
-    private lateinit var adapter: TodoListAdapter
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,10 +60,11 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         mySharedPref = MySharedPreference(this)
         addTaskFrag = TaskAddingFragment.getTaskFragInstance()
         homeTaskScreenFragment = HomeTaskScreenFragment.getHomeTaskScrenFragment()
-        adapter = TodoListAdapter()
+
         initViewModel(this)
 
         startingApp()
+
 
 
     }
@@ -71,7 +76,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         repository = TaskieRepository(taskieDao)
         factory = Factory(repository)
         mTaskViewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)
-        observe()
+
 
     }
 
@@ -82,12 +87,31 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             }
         })
     }
+    private fun observer(){
+        mTaskViewModel.colorLIveData.observe(this , Observer {
+            if(it.isNotEmpty()){
+                homeScreen()
+            }
+        })
+    }
 
     private fun startingApp() {
+
         if (mySharedPref.getWhenAplicationFirstOpened()) {
+
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Main) {
 
+                    mTaskViewModel.colorLIveData.observe(this@MainActivity , Observer {
+                        if(it.isEmpty()){
+                            firstScreen()
+                        }
+                    })
+                    mTaskViewModel.colorLIveData.observe(this@MainActivity , Observer {
+                        if(it.isNotEmpty()){
+                            homeScreen()
+                        }
+                    })
 
                 }
 
@@ -107,6 +131,18 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         mySharedPref.saveWhenAplicationFirstOpened(true)
     }
 
+    override fun bttnClicked() {
+
+        mTaskViewModel.colorLIveData.observe(this , Observer {
+            if (it.isEmpty()){
+                observe()
+            }
+            else {
+                observer()
+            }
+        })
+
+    }
     private fun firstScreen() {
         supportFragmentManager
             .beginTransaction()
@@ -135,9 +171,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             .commit()
     }
 
-    override fun bttnClicked() {
-        startingApp()
-    }
+
 
     override fun taskAdd() {
         supportFragmentManager
@@ -151,6 +185,43 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             .beginTransaction()
             .replace(R.id.frame_id, addTaskFrag)
             .commit()
+    }
+
+    override fun sortBy(sort: String) {
+        Log.e("DADE", "Movida -> $sort")
+        if (sort == "Date added") {
+            mTaskViewModel.getSelectedData().observe(this , Observer {
+                homeTaskScreenFragment.adapter.setData(it)
+            })
+            Toast.makeText(applicationContext, "Sorted by creation date", Toast.LENGTH_SHORT).show()
+        }
+        else if (sort == "Due date") {
+            mTaskViewModel.getTasksByDate().observe(this , Observer {
+                homeTaskScreenFragment.adapter.setData(it)
+            })
+            Toast.makeText(applicationContext, "Sorted by date", Toast.LENGTH_SHORT).show()
+        }
+        else if (sort == "Color label") {
+            mTaskViewModel.getSelectedData().observe(this , Observer {
+                homeTaskScreenFragment.adapter.setData(it)
+            })
+            Toast.makeText(applicationContext, "Sorted by color", Toast.LENGTH_SHORT).show()
+        }
+
+
+//        CustomDialogFragment().show(supportFragmentManager , "Custom Dialog")
+//
+//        val dialog = CustomDialogFragment()
+//
+//
+//        date_added.setOnClickListener {
+//            val selectedID = radio_group.checkedRadioButtonId
+//            val radio = findViewById<RadioButton>(selectedID)
+//            val result = radio.text.toString()
+//            Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT).show()
+//            dialog.dismiss()
+//
+//        }
     }
 
 //    override fun getDate() {

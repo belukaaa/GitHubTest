@@ -1,8 +1,12 @@
 package com.raywenderlich.ticky.fragments
 
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
+import android.widget.RadioButton
+import android.widget.Toast
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -18,22 +22,24 @@ import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import com.raywenderlich.ticky.taskrecyclerview.SelectedTaskAdapter
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
+import kotlinx.android.synthetic.main.dialog_fragment.*
+import kotlinx.android.synthetic.main.dialog_fragment.view.*
 import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.view.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie  {
+class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie   {
 
     private var list = ArrayList<Taskie>()
     private var checkedList = ArrayList<Taskie>()
     private var selectedList = ArrayList<Taskie>()
-    private var checkAllTasks = ArrayList<Taskie>()
+    private var sortBy : String = ""
 
     private lateinit var selectedTaskRecyclerView: RecyclerView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: TodoListAdapter
+    lateinit var adapter: TodoListAdapter
     private lateinit var selectedAdapter: SelectedTaskAdapter
     private lateinit var mTaskViewModel: TaskViewModel
     private lateinit var factory: Factory
@@ -78,10 +84,10 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer { user ->
+        mTaskViewModel.getSelectedData().observe(viewLifecycleOwner, Observer { user ->
             adapter.setData(user)
         })
-        mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner , Observer { user ->
+        mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner, Observer { user ->
             selectedAdapter.setSelectedData(user)
         })
 
@@ -93,7 +99,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         delete_task_button.setOnClickListener {
-                mTaskViewModel.deleteUser(list)
+            mTaskViewModel.deleteUser(list)
             list.forEach { task ->
                 task.checked = false
 
@@ -101,14 +107,14 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             hideDeleteDonebttns()
         }
 
-         cancel_selecting.setOnClickListener{
-             list.clear()
-             mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer { user ->
-                 adapter.setData(user)
-             })
-             mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner , Observer { user ->
-                 selectedAdapter.setSelectedData(user)
-             })
+        cancel_selecting.setOnClickListener {
+            list.clear()
+            mTaskViewModel.getSelectedData().observe(viewLifecycleOwner, Observer { user ->
+                adapter.setData(user)
+            })
+            mTaskViewModel.getUnSelectedData().observe(viewLifecycleOwner, Observer { user ->
+                selectedAdapter.setSelectedData(user)
+            })
             hideDeleteDonebttns()
         }
 
@@ -122,37 +128,29 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
                 task.checked = false
                 mTaskViewModel.updateTask(task)
             }
-                adapter.notifyDataSetChanged()
+            adapter.notifyDataSetChanged()
 
             hideDeleteDonebttns()
         }
-
-
         view.textView5.setOnClickListener {
-            var dialog = CustomDialogFragment()
-
-
-            dialog.show(childFragmentManager , "CustomDialog")
-
-
-
-
+            var data = showDialog()
         }
+    }
+    private fun showDialog(){
+        val dialog = CustomDialogFragment()
+
+        dialog.show(childFragmentManager , "CustomDialog")
 
 
     }
     private fun initViewModel(context: Context) {
-
         taskDB = TaskieDatabase.getDatabase(context)
         taskieDao = taskDB.taskieDao()
         repository = TaskieRepository(taskieDao)
         factory = Factory(repository)
         mTaskViewModel = ViewModelProviders.of(this, factory).get(TaskViewModel::class.java)
         mySharedPref = MySharedPreference(context)
-
     }
-
-
     companion object {
         fun getHomeTaskScrenFragment():HomeTaskScreenFragment {
             return  HomeTaskScreenFragment()
@@ -833,6 +831,33 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
     override fun updateTaskie(task: Taskie) {
         mTaskViewModel.updateTask(task)
+    }
+
+   fun sortBy(sort: String) {
+        this.sortBy = sort
+
+        Toast.makeText(context, sort, Toast.LENGTH_SHORT).show()
+
+       if (sortBy == "Date added") {
+           mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer {
+               adapter.setData(it)
+
+           })
+       }
+        else if (sortBy == "Due date"){
+            mTaskViewModel.getTasksByDate().observe(viewLifecycleOwner , Observer {
+                adapter.setData(it)
+            })
+
+       }
+       else if (sortBy == "Color label") {
+
+           mTaskViewModel.colorLIveData.observe(viewLifecycleOwner , Observer{
+               adapter.setData(it)
+           })
+       }
+
+
     }
 
 
