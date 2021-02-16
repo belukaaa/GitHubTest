@@ -13,6 +13,7 @@ class Taskie (
     val datetime: String? = null,
     var checked: Boolean = false,
     var selected: Boolean = false,
-    var dateLong: Long? = null
+    var dateLong: Long? = null ,
+    var sortingColor : Int
 
 )

@@ -23,6 +23,9 @@ class TaskieRepository(private val taskDao: TaskieDao) {
     fun getTasksByColor() : LiveData<List<Taskie>>{
         return taskDao.readTasksByColor()
     }
+    fun sortTasksByColor() : LiveData<List<Taskie>>{
+        return taskDao.sortTasksByColor()
+    }
 
      fun addTask(task : Taskie) {
        CoroutineScope(Dispatchers.IO).launch {

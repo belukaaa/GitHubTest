@@ -30,6 +30,9 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
         return repository.getTaskByDate()
     }
 
+    fun sortTasksByColor() : LiveData<List<Taskie>> {
+        return repository.sortTasksByColor()
+    }
 
 
 

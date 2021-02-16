@@ -31,7 +31,9 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     //ქვემოთ გაქ გადმოტანილი თურამეა აატყვნეინე ფრაგმენტის ზემოთ
     var TASK_COLOR : String = ""
     var TASK_DATE : String = ""
-    var TASK_DATE1 : Long? = null
+    var TASK_DATE1 : Long? = 999999999999999999
+    var TASK_COLORED : Int = 10
+
 
     private lateinit var mTaskViewModel: TaskViewModel
     private lateinit var factory: com.raywenderlich.ticky.repository.Factory
@@ -78,6 +80,11 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         val input = view.Task_input.text.toString()
 
 
+
+
+
+
+
         view.calendar.setOnClickListener{
             getDate()
 
@@ -111,45 +118,45 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
     }
     
-    private fun setColor() : String {
+    private fun setColor()  {
         view?.oval1?.setOnClickListener {
             TASK_COLOR = "#ff453a"
+            TASK_COLORED = 0
            
         }
         view?.oval2?.setOnClickListener {
             TASK_COLOR = "#ff9f0c"
-          
+            TASK_COLORED = 1
         }
         view?.oval3?.setOnClickListener {
             TASK_COLOR = "#ffd50c"
-           
+            TASK_COLORED = 2
         }
         view?.oval4?.setOnClickListener {
             TASK_COLOR = "#32d74b"
-            
+            TASK_COLORED = 3
         }
         view?.oval5?.setOnClickListener {
             TASK_COLOR = "#64d2ff"
-          
+            TASK_COLORED = 4
         }
         view?.oval6?.setOnClickListener {
             TASK_COLOR = "#0984ff"
-          
+            TASK_COLORED = 5
         }
         view?.oval7?.setOnClickListener {
             TASK_COLOR = "#5e5ce6"
-            
+            TASK_COLORED = 6
         }
         view?.oval8?.setOnClickListener {
-            println("yleqala $TASK_COLOR")
+            TASK_COLOR = "#bf5af2"
+            TASK_COLORED = 7
            
         }
         view?.oval9?.setOnClickListener {
             TASK_COLOR = "#ff375f"
-           
+            TASK_COLORED = 8
         }
-
-        return TASK_COLOR
     }
     private fun getDate() {
         val calendar : Calendar = Calendar.getInstance()
@@ -166,21 +173,23 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
     private fun insertDataToDatabase()  {
-        val title = Task_input.text.toString()
+        val title = Task_input.text.toString().trim()
         val color = TASK_COLOR
         val datetime = TASK_DATE
         val checked = false
         val selected = false
         val dateLong = TASK_DATE1
-        
+        val sortingColor = TASK_COLORED
 
 
 
         if(title.isNotEmpty()){
-            val task = Taskie(0, title, color, datetime, checked, selected , dateLong)
+            val task = Taskie(0, title, color, datetime, checked, selected , dateLong , sortingColor)
             mTaskViewModel.addTask(task)
             TASK_DATE = ""
             TASK_COLOR = ""
+            TASK_COLORED = 10
+            TASK_DATE1 = 999999999999999999
             Task_input.text.clear()
             Toast.makeText(requireContext(), " ADDED", Toast.LENGTH_LONG).show()
 

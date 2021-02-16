@@ -202,7 +202,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             Toast.makeText(applicationContext, "Sorted by date", Toast.LENGTH_SHORT).show()
         }
         else if (sort == "Color label") {
-            mTaskViewModel.getSelectedData().observe(this , Observer {
+            mTaskViewModel.sortTasksByColor().observe(this , Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
             Toast.makeText(applicationContext, "Sorted by color", Toast.LENGTH_SHORT).show()
