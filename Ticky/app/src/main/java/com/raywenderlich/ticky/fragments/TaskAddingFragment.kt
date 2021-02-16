@@ -30,7 +30,7 @@ import java.util.*
 
 
 class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
-    //ქვემოთ გაქ გადმოტანილი თურამეა აატყვნეინე ფრაგმენტის ზემოთ
+    
     var TASK_COLOR : String = ""
     var TASK_DATE : String = ""
     var TASK_DATE1 : Long? = 999999999999999999
@@ -111,6 +111,14 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             listener?.bttnClicked()
         }
 
+        view.xoo.setOnClickListener {
+            TASK_DATE = ""
+            xoo.visibility = INVISIBLE
+            calendar.visibility = VISIBLE
+            dateCalendar.text = ""
+
+        }
+
 
     }
 
@@ -129,6 +137,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
                     saveButton.setBackgroundResource(R.drawable.onboarding_button)
 
                 }else {
+
                     saveButton.setEnabled(true)
                     saveButton.setBackgroundResource(R.drawable.disabled_save_button)
                 }

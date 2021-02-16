@@ -1,54 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
     >
 
     <TextView
         android:id="@+id/sort_by"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="291dp"
         android:fontFamily="@font/ubuntu_medium"
         android:text="@string/sort_by_123"
         android:textColor="#1e212b"
-        android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="25sp"
+
+        app:layout_constraintBottom_toTopOf="@+id/radio_group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/radio_group" />
 
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_below="@+id/sort_by"
         android:padding="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sort_by">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RadioButton
             android:id="@+id/date_added"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_medium"
-            android:text="@string/date_added" />
+            android:text="@string/date_added"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/due_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_medium"
-            android:text="@string/due_date" />
+            android:text="@string/due_date"
+            android:textSize="16sp" />
 
         <RadioButton
             android:id="@+id/color_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/ubuntu_medium"
-            android:text="@string/color_label" />
+            android:text="@string/color_label"
+            android:textSize="16sp" />
 
 
     </RadioGroup>

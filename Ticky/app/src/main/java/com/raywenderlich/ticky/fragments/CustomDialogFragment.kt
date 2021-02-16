@@ -23,7 +23,10 @@ class CustomDialogFragment : DialogFragment() {
     ): View? {
         val rootView: View = inflater.inflate(R.layout.dialog_fragment , container , false )
 
-  //      dialog?.window?.setGravity(Gravity.BOTTOM)
+       dialog?.window?.setGravity(Gravity.BOTTOM)
+
+        getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.rounded_corners_dialog)
+      //  dialog.getWindow()?.setLayout(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
 
         rootView.date_added.setOnClickListener {
             var selectedID = radio_group.checkedRadioButtonId
