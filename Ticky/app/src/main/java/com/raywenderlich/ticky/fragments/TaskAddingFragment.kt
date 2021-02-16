@@ -3,6 +3,8 @@ package com.raywenderlich.ticky.fragments
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -77,13 +79,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         dateCalendar.visibility = INVISIBLE
         xoo.visibility = INVISIBLE
 
-        val input = view.Task_input.text.toString()
-
-
-
-
-
-
+        disableEnable()
 
         view.calendar.setOnClickListener{
             getDate()
@@ -114,6 +110,38 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             Task_input.text.clear()
             listener?.bttnClicked()
         }
+
+
+    }
+
+    private fun disableEnable() {
+
+        view?.Task_input?.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                saveButton.setBackgroundResource(R.drawable.onboarding_button)
+
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+
+                if (Task_input.text.toString().trim( {it <= ' '}).isEmpty()){
+                    saveButton.setEnabled(false)
+                    saveButton.setBackgroundResource(R.drawable.onboarding_button)
+
+                }else {
+                    saveButton.setEnabled(true)
+                    saveButton.setBackgroundResource(R.drawable.disabled_save_button)
+                }
+
+
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+              //  saveButton.setBackgroundResource(R.drawable.disabled_save_button)
+
+            }
+
+        })
 
 
     }
@@ -184,7 +212,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
         if(title.isNotEmpty()){
-            val task = Taskie(0, title, color, datetime, checked, selected , dateLong , sortingColor)
+            val task = Taskie(0, title, color, datetime, checked, selected, dateLong, sortingColor)
             mTaskViewModel.addTask(task)
             TASK_DATE = ""
             TASK_COLOR = ""

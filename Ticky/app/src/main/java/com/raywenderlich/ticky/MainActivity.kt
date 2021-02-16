@@ -20,6 +20,8 @@ import com.raywenderlich.ticky.repository.Factory
 import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
+import kotlinx.android.synthetic.main.adding_activity_task.*
+import kotlinx.android.synthetic.main.adding_activity_task.view.*
 import kotlinx.android.synthetic.main.dialog_fragment.*
 import kotlinx.android.synthetic.main.dialog_fragment.view.*
 import kotlinx.android.synthetic.main.home_task_screen.*
@@ -48,6 +50,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -60,6 +63,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         mySharedPref = MySharedPreference(this)
         addTaskFrag = TaskAddingFragment.getTaskFragInstance()
         homeTaskScreenFragment = HomeTaskScreenFragment.getHomeTaskScrenFragment()
+
 
         initViewModel(this)
 
@@ -209,6 +213,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         }
 
 
+
 //        CustomDialogFragment().show(supportFragmentManager , "Custom Dialog")
 //
 //        val dialog = CustomDialogFragment()
@@ -223,6 +228,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 //
 //        }
     }
+
 
 //    override fun getDate() {
 //       val  calendar : Calendar = Calendar.getInstance()
