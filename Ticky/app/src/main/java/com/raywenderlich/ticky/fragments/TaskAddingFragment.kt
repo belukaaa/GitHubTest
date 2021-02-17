@@ -28,7 +28,6 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     
     var TASK_COLOR : String = ""
