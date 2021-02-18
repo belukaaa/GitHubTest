@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
-        android:background="@drawable/onboarding_button"
+        android:background="@drawable/disabled_save_button"
         android:drawableLeft="@drawable/invalid_name"
         android:drawablePadding="8dp"
         android:text="@string/get_started_1"

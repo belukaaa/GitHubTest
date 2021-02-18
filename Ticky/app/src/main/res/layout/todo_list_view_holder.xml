@@ -109,14 +109,14 @@
 
 
     <TextView
-        android:fontFamily="@font/ubuntu_medium"
         android:id="@+id/task"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="6dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="15dp"
+        android:fontFamily="@font/ubuntu_medium"
         android:isScrollContainer="true"
         android:lineSpacingExtra="1dp"
         android:scrollbars="vertical"
@@ -146,7 +146,8 @@
         android:id="@+id/checkBox"
         android:layout_width="25dp"
         android:layout_height="24dp"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="15dp"
+        android:button="@drawable/checkbox"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/task" />
 

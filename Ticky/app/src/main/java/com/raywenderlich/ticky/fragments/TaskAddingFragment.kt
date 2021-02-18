@@ -174,6 +174,15 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             if (CIRCLE_POSITION1){
 
                 view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
                 CIRCLE_POSITION1 = false
                 CIRCLE_POSITION2 = false
                 CIRCLE_POSITION3 = false
@@ -186,6 +195,15 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             }
             else{
                 view?.circleRed?.visibility = VISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
                 CIRCLE_POSITION1 = true
                 CIRCLE_POSITION2 = false
                 CIRCLE_POSITION3 = false
@@ -204,7 +222,17 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION2){
 
+                view?.circleRed?.visibility = INVISIBLE
                 view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+
                 CIRCLE_POSITION1 = false
                 CIRCLE_POSITION2 = false
                 CIRCLE_POSITION3 = false
@@ -216,8 +244,18 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
                 CIRCLE_POSITION9 = false
             }
             else{
+                view?.circleRed?.visibility = INVISIBLE
                 view?.circleOrange?.visibility = VISIBLE
-                CIRCLE_POSITION1 = true
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+
+                CIRCLE_POSITION1 = false
                 CIRCLE_POSITION2 = true
                 CIRCLE_POSITION3 = false
                 CIRCLE_POSITION4 = false
@@ -234,11 +272,49 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION3){
 
-                CIRCLE_POSITION3=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
+
             }
+
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = VISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
                 CIRCLE_POSITION3 = true
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
         }
         view?.oval4?.setOnClickListener {
@@ -247,11 +323,47 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION4){
 
-                CIRCLE_POSITION4=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = VISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
                 CIRCLE_POSITION4 = true
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
         }
         view?.oval5?.setOnClickListener {
@@ -260,24 +372,93 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION5){
 
-                CIRCLE_POSITION5=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = VISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
                 CIRCLE_POSITION5 = true
-            }
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false            }
         }
         view?.oval6?.setOnClickListener {
             TASK_COLOR = "#0984ff"
             TASK_COLORED = 5
 
             if(CIRCLE_POSITION6) {
-                circleBlue.visibility = INVISIBLE
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
                 CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
-                circleBlue.visibility = VISIBLE
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = VISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
                 CIRCLE_POSITION6 = true
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
 
         }
@@ -287,12 +468,47 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION7){
 
-                CIRCLE_POSITION7=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = VISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
                 CIRCLE_POSITION7 = true
-            }
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false            }
         }
         view?.oval8?.setOnClickListener {
             TASK_COLOR = "#bf5af2"
@@ -300,11 +516,47 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION8){
 
-                CIRCLE_POSITION8=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = VISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
                 CIRCLE_POSITION8 = true
+                CIRCLE_POSITION9 = false
             }
         }
         view?.oval9?.setOnClickListener {
@@ -313,10 +565,46 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION9){
 
-                CIRCLE_POSITION9=false
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = INVISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
 
+                view?.circleRed?.visibility = INVISIBLE
+                view?.circleOrange?.visibility = INVISIBLE
+                view?.circleYellow?.visibility = INVISIBLE
+                view?.circleGreen?.visibility = INVISIBLE
+                view?.lightBlue?.visibility = INVISIBLE
+                view?.circleBlue?.visibility = INVISIBLE
+                view?.circleUcnobi?.visibility = INVISIBLE
+                view?.circle_purple?.visibility = INVISIBLE
+                view?.circleRose?.visibility = VISIBLE
+
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
                 CIRCLE_POSITION9 = true
             }
         }
