@@ -29,6 +29,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     task.checked = true
 
                     itemView.linearLayout.setBackgroundResource(R.drawable.selected_item)
+                    itemView.checkBox.setButtonDrawable(R.drawable.ic_rectangle_completed)
                     taskList1.add(task)
                     listener?.onChecked(taskList1)
 
@@ -38,6 +39,8 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     task.checked = false
                     holder.itemView.checkBox.isChecked = false
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
+                    itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
+
                     taskList1.remove(task)
                     listener?.onChecked(taskList1)
                     notifyDataSetChanged()
