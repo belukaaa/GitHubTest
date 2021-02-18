@@ -293,7 +293,7 @@
         app:srcCompat="@drawable/gone_taskk" />
 
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -303,7 +303,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval6"
         app:srcCompat="@drawable/wrewiri" />
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleRed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -313,7 +313,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval1"
         app:srcCompat="@drawable/oval_red"/>
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleOrange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -323,7 +323,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval2"
         app:srcCompat="@drawable/oval_orange" />
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleYellow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -333,7 +333,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval3"
         app:srcCompat="@drawable/oval_yellow" />
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleGreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -343,7 +343,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval4"
         app:srcCompat="@drawable/oval_green" />
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/lightBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -354,7 +354,7 @@
         app:srcCompat="@drawable/oval_lightblue" />
 
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleUcnobi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -364,7 +364,7 @@
         app:layout_constraintTop_toTopOf="@+id/oval7"
         app:srcCompat="@drawable/oval_blue" />
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circle_purple"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -375,7 +375,7 @@
         app:srcCompat="@drawable/oval_purple" />
 
     <ImageView
-        android:visibility="visible"
+        android:visibility="invisible"
         android:id="@+id/circleRose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

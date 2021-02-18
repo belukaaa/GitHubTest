@@ -34,6 +34,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     var TASK_DATE : String = ""
     var TASK_DATE1 : Long? = 999999999999999999
     var TASK_COLORED : Int = 10
+
     private var CIRCLE_POSITION1 : Boolean = false
     private var CIRCLE_POSITION2 : Boolean = false
     private var CIRCLE_POSITION3 : Boolean = false
@@ -43,6 +44,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     private var CIRCLE_POSITION7 : Boolean = false
     private var CIRCLE_POSITION8 : Boolean = false
     private var CIRCLE_POSITION9 : Boolean = false
+
 
 
 
@@ -171,11 +173,28 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION1){
 
-                CIRCLE_POSITION1=false
+                view?.circleRed?.visibility = INVISIBLE
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
-
+                view?.circleRed?.visibility = VISIBLE
                 CIRCLE_POSITION1 = true
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
 
         }
@@ -185,11 +204,28 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             if (CIRCLE_POSITION2){
 
-                CIRCLE_POSITION2=false
+                view?.circleOrange?.visibility = INVISIBLE
+                CIRCLE_POSITION1 = false
+                CIRCLE_POSITION2 = false
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
             else{
-
+                view?.circleOrange?.visibility = VISIBLE
+                CIRCLE_POSITION1 = true
                 CIRCLE_POSITION2 = true
+                CIRCLE_POSITION3 = false
+                CIRCLE_POSITION4 = false
+                CIRCLE_POSITION5 = false
+                CIRCLE_POSITION6 = false
+                CIRCLE_POSITION7 = false
+                CIRCLE_POSITION8 = false
+                CIRCLE_POSITION9 = false
             }
         }
         view?.oval3?.setOnClickListener {
