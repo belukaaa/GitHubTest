@@ -29,11 +29,21 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
-    
+
     var TASK_COLOR : String = ""
     var TASK_DATE : String = ""
     var TASK_DATE1 : Long? = 999999999999999999
     var TASK_COLORED : Int = 10
+    private var CIRCLE_POSITION1 : Boolean = false
+    private var CIRCLE_POSITION2 : Boolean = false
+    private var CIRCLE_POSITION3 : Boolean = false
+    private var CIRCLE_POSITION4 : Boolean = false
+    private var CIRCLE_POSITION5 : Boolean = false
+    private var CIRCLE_POSITION6 : Boolean = false
+    private var CIRCLE_POSITION7 : Boolean = false
+    private var CIRCLE_POSITION8 : Boolean = false
+    private var CIRCLE_POSITION9 : Boolean = false
+
 
 
     private lateinit var mTaskViewModel: TaskViewModel
@@ -158,41 +168,123 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         view?.oval1?.setOnClickListener {
             TASK_COLOR = "#ff453a"
             TASK_COLORED = 0
-           
+
+            if (CIRCLE_POSITION1){
+
+                CIRCLE_POSITION1=false
+            }
+            else{
+
+                CIRCLE_POSITION1 = true
+            }
+
         }
         view?.oval2?.setOnClickListener {
             TASK_COLOR = "#ff9f0c"
             TASK_COLORED = 1
+
+            if (CIRCLE_POSITION2){
+
+                CIRCLE_POSITION2=false
+            }
+            else{
+
+                CIRCLE_POSITION2 = true
+            }
         }
         view?.oval3?.setOnClickListener {
             TASK_COLOR = "#ffd50c"
             TASK_COLORED = 2
+
+            if (CIRCLE_POSITION3){
+
+                CIRCLE_POSITION3=false
+            }
+            else{
+
+                CIRCLE_POSITION3 = true
+            }
         }
         view?.oval4?.setOnClickListener {
             TASK_COLOR = "#32d74b"
             TASK_COLORED = 3
+
+            if (CIRCLE_POSITION4){
+
+                CIRCLE_POSITION4=false
+            }
+            else{
+
+                CIRCLE_POSITION4 = true
+            }
         }
         view?.oval5?.setOnClickListener {
             TASK_COLOR = "#64d2ff"
             TASK_COLORED = 4
+
+            if (CIRCLE_POSITION5){
+
+                CIRCLE_POSITION5=false
+            }
+            else{
+
+                CIRCLE_POSITION5 = true
+            }
         }
         view?.oval6?.setOnClickListener {
             TASK_COLOR = "#0984ff"
             TASK_COLORED = 5
+
+            if(CIRCLE_POSITION6) {
+                circleBlue.visibility = INVISIBLE
+                CIRCLE_POSITION6 = false
+            }
+            else{
+                circleBlue.visibility = VISIBLE
+                CIRCLE_POSITION6 = true
+            }
+
         }
         view?.oval7?.setOnClickListener {
             TASK_COLOR = "#5e5ce6"
             TASK_COLORED = 6
+
+            if (CIRCLE_POSITION7){
+
+                CIRCLE_POSITION7=false
+            }
+            else{
+
+                CIRCLE_POSITION7 = true
+            }
         }
         view?.oval8?.setOnClickListener {
             TASK_COLOR = "#bf5af2"
             TASK_COLORED = 7
-           
+
+            if (CIRCLE_POSITION8){
+
+                CIRCLE_POSITION8=false
+            }
+            else{
+
+                CIRCLE_POSITION8 = true
+            }
         }
         view?.oval9?.setOnClickListener {
             TASK_COLOR = "#ff375f"
             TASK_COLORED = 8
+
+            if (CIRCLE_POSITION9){
+
+                CIRCLE_POSITION9=false
+            }
+            else{
+
+                CIRCLE_POSITION9 = true
+            }
         }
+
     }
     private fun getDate() {
         val calendar : Calendar = Calendar.getInstance()
@@ -206,6 +298,11 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         datePickerDialog.show()
     }
 
+    private fun setCircle() {
+        view?.oval5?.setOnClickListener{
+
+        }
+    }
 
 
     private fun insertDataToDatabase()  {
@@ -335,6 +432,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
     }
+
     private fun setColorToRound(color: String) {
         if (color == "#ff453a"){
             task_color_red.visibility = VISIBLE
