@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.raywenderlich.ticky.R
 import kotlinx.android.synthetic.main.onboarding.*
 
@@ -28,6 +29,7 @@ class OnboardingFragment: Fragment() {
         onboarding_button.setOnClickListener {
             listener?.buttonClicked()
         }
+
 
 
 

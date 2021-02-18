@@ -622,11 +622,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         datePickerDialog.show()
     }
 
-    private fun setCircle() {
-        view?.oval5?.setOnClickListener{
 
-        }
-    }
 
 
     private fun insertDataToDatabase()  {

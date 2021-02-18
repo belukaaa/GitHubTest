@@ -8,6 +8,8 @@ import android.view.WindowManager
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -126,9 +128,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
     private fun onboarrding() {
         supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.frame_id, onboardingFrag)
-            .commit()
+                .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+                .replace(R.id.frame_id, onboardingFrag)
+                .commit()
+
+
         mySharedPref.saveWhenAplicationFirstOpened(true)
     }
 
