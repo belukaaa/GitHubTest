@@ -15,6 +15,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.raywenderlich.ticky.R
@@ -85,6 +86,9 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val itemImageView = view.Task_input
+        ViewCompat.setTransitionName(itemImageView , "item_image")
 
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view.Task_input, InputMethodManager.SHOW_IMPLICIT)

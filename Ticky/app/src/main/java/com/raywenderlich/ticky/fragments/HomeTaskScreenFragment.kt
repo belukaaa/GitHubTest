@@ -2,13 +2,17 @@ package com.raywenderlich.ticky.fragments
 
 import android.content.Context
 import android.content.DialogInterface
+import android.media.Image
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.*
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -58,7 +62,11 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val view = inflater.inflate(R.layout.home_task_screen, container, false)
+
+
 
         initViewModel(view.context)
 
@@ -71,11 +79,26 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         super.onViewCreated(view, savedInstanceState)
         setDatee()
 
+        val heroImageView = view.recycle
+        ViewCompat.setTransitionName(heroImageView, "hero_image")
+
         val ttb = AnimationUtils.loadAnimation(context , R.anim.ttb)
+        val fadeIn = AnimationUtils.loadAnimation(context , R.anim.fade_in2)
         val headerTitle = vnaxotraiqneba11 as ConstraintLayout
+        val recycler = recycle as RecyclerView
+        val recycler1 = checked_recycler as RecyclerView
+        val textView = textView7 as TextView
+        val imageViewer = imageView5 as ImageView
+        val textView2 = textView8 as TextView
+        val imageViewer2 = imageView6 as ImageView;
 
+        textView.startAnimation(fadeIn)
+        imageViewer.startAnimation(fadeIn)
+        imageViewer2.startAnimation(fadeIn)
+        textView2.startAnimation(fadeIn)
         headerTitle.startAnimation(ttb)
-
+        recycler.startAnimation(fadeIn)
+        recycler1.startAnimation(fadeIn)
 
         adapter = TodoListAdapter()
         adapter.setOnCheckListener(this)

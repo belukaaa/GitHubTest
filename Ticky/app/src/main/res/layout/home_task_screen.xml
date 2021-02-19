@@ -269,6 +269,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
+            android:transitionName="@string/sharedchars"
             android:id="@+id/recycle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

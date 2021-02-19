@@ -36,4 +36,7 @@
     <string name="due_date">Due date</string>
     <string name="color_label">Color label</string>
     <string name="sharedchars">shared_char_mainpage</string>
+    <string name="posterImage">poster %s</string>
+    <string name="releaseDate">date %s</string>
+    <string name="rating">rating %s</string>
 </resources>
