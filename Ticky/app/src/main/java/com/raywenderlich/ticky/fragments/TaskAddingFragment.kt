@@ -1,7 +1,9 @@
 package com.raywenderlich.ticky.fragments
 
 import android.app.DatePickerDialog
+import android.app.TaskStackBuilder.create
 import android.content.Context
+import android.content.IntentFilter.create
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,9 +12,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
-import android.widget.DatePicker
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.raywenderlich.ticky.R
@@ -23,7 +25,9 @@ import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import kotlinx.android.synthetic.main.adding_activity_task.*
 import kotlinx.android.synthetic.main.adding_activity_task.view.*
+import kotlinx.android.synthetic.main.onboarding.*
 import kotlinx.android.synthetic.main.todo_list_view_holder.*
+import java.net.URI.create
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -84,6 +88,37 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view.Task_input, InputMethodManager.SHOW_IMPLICIT)
+        val btt1 = AnimationUtils.loadAnimation(context , R.anim.btt2)
+
+        val oval1 = oval1 as Button
+        val oval2 = oval2 as Button
+        val oval3 = oval3 as Button
+        val oval4 = oval4 as Button
+        val oval5 = oval5 as Button
+        val oval6 = oval6 as Button
+        val oval7 = oval7 as Button
+        val oval8 = oval8 as Button
+        val oval9 = oval9 as Button
+        val saveButton = saveButton as Button
+        val cancelText = textView4 as TextView
+        val cancelButton = cancel_selecting2 as ImageView
+        val input = Task_input as EditText
+        val textView6 = textView6 as TextView
+
+        oval1.startAnimation(btt1)
+        oval2.startAnimation(btt1)
+        oval3.startAnimation(btt1)
+        oval4.startAnimation(btt1)
+        oval5.startAnimation(btt1)
+        oval6.startAnimation(btt1)
+        oval7.startAnimation(btt1)
+        oval8.startAnimation(btt1)
+        oval9.startAnimation(btt1)
+        saveButton.startAnimation(btt1)
+        cancelText.startAnimation(btt1)
+        cancelButton.startAnimation(btt1)
+        input.startAnimation(btt1)
+        textView6.startAnimation(btt1)
 
         dateCalendar.visibility = INVISIBLE
         xoo.visibility = INVISIBLE
@@ -98,6 +133,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         setColor()
 
         view.saveButton.setOnClickListener {
+
             insertDataToDatabase()
             listener1?.taskAdd()
         }

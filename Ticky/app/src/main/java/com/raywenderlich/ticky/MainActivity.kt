@@ -162,6 +162,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     private fun homeScreen() {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
             .replace(R.id.frame_id, homeTaskScreenFragment)
             .commit()
     }
@@ -177,7 +178,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun Clicked() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_out_down,R.anim.slide_in_up , R.anim.slide_in_up , R.anim.slide_out_down)
+            .setCustomAnimations(R.anim.slide_in_up,R.anim.slide_out_down, R.anim.slide_in_up , R.anim.slide_out_down)
             .replace(R.id.frame_id, addTaskFrag)
             .commit()
     }
@@ -187,6 +188,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun taskAdd() {
         supportFragmentManager
             .beginTransaction()
+            .addSharedElement(Task_input , Task_input.transitionName)
             .replace(R.id.frame_id, homeTaskScreenFragment)
             .commit()
     }
@@ -194,6 +196,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun homeTaskScrenButton() {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in_up,R.anim.slide_out_down, R.anim.slide_in_up , R.anim.slide_out_down)
             .replace(R.id.frame_id, addTaskFrag)
             .commit()
     }

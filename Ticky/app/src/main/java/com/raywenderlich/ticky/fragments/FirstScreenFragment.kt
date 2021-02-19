@@ -41,6 +41,7 @@ class FirstScreenFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDatee()
+
         add_task_button.setOnClickListener {
             listener?.Clicked()
         }

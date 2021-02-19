@@ -3,6 +3,7 @@ package com.raywenderlich.ticky.fragments
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.RadioButton
@@ -60,6 +61,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         val view = inflater.inflate(R.layout.home_task_screen, container, false)
 
         initViewModel(view.context)
+
 
 
 
@@ -144,6 +146,9 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             var data = showDialog()
         }
     }
+
+
+
     private fun showDialog(){
         val dialog = CustomDialogFragment()
 
