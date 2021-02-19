@@ -1,5 +1,6 @@
 package com.raywenderlich.ticky
 
+import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -37,6 +38,7 @@ import kotlinx.coroutines.withContext
 class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     FirstScreenFragment.Click, TaskAddingFragment.BttnClicked, TaskAddingFragment.Task_addingButton,
     HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting {
+
 
 
     private lateinit var factory: Factory
@@ -152,6 +154,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     private fun firstScreen() {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
             .replace(R.id.frame_id, FirstScreenFrag)
             .commit()
     }
@@ -166,6 +169,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun buttonClicked() {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
             .replace(R.id.frame_id, FirstScreenFrag)
             .commit()
     }

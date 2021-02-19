@@ -1,5 +1,6 @@
 package com.raywenderlich.ticky.taskrecyclerview
 
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,10 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectTaskViewHolder {
 
         val view = LayoutInflater.from(parent.context).inflate(R.layout.chechked_task_viewholder , parent , false)
+
+
+        view.selected_task.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+
 
 
 

@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -24,6 +26,7 @@ import com.raywenderlich.ticky.taskrecyclerview.SelectedTaskAdapter
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
 import kotlinx.android.synthetic.main.dialog_fragment.*
 import kotlinx.android.synthetic.main.dialog_fragment.view.*
+import kotlinx.android.synthetic.main.first_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.view.*
 import java.util.*
@@ -65,6 +68,11 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setDatee()
+
+        val ttb = AnimationUtils.loadAnimation(context , R.anim.ttb)
+        val headerTitle = vnaxotraiqneba11 as ConstraintLayout
+
+        headerTitle.startAnimation(ttb)
 
 
         adapter = TodoListAdapter()

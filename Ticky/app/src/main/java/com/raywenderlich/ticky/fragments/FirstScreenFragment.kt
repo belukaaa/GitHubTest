@@ -6,8 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -39,6 +44,25 @@ class FirstScreenFragment: Fragment() {
         add_task_button.setOnClickListener {
             listener?.Clicked()
         }
+
+
+
+        val ttb = AnimationUtils.loadAnimation(context , R.anim.ttb)
+        val stb = AnimationUtils.loadAnimation(context , R.anim.stb)
+        val btt1 = AnimationUtils.loadAnimation(context , R.anim.btt1)
+
+
+        val headerTitle = vnaxotraiqneba as ConstraintLayout
+        val tickyImg = imageView2 as ImageView
+        val text = textView3 as TextView
+        val button = add_task_button as Button
+
+
+        headerTitle.startAnimation(ttb)
+        tickyImg.startAnimation(stb)
+        text.startAnimation(stb)
+        button.startAnimation(btt1)
+
     }
 
     companion object {
