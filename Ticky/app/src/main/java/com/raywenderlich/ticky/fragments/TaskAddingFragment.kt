@@ -133,6 +133,9 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             getDate()
 
         }
+        view.dateCalendar.setOnClickListener {
+            getDate()
+        }
 
         setColor()
 

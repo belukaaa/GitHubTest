@@ -22,13 +22,13 @@ class MySharedPreference(context : Context) {
     private val pref2 = context.getSharedPreferences(TASK_SELECTED , Context.MODE_PRIVATE)
     private val editor2  = pref2.edit()
 
-    fun saveExe(value: Boolean) {
-        editor1.putBoolean(TASK,value)
+    fun saveExe(value: String) {
+        editor1.putString(TASK,value)
         editor1.apply()
     }
 
-    fun taskExe(): Boolean {
-        return pref1.getBoolean(TASK,false)
+    fun taskExe(): String? {
+        return pref1.getString(TASK , "")
     }
 
     fun saveWhenAplicationFirstOpened(value: Boolean){

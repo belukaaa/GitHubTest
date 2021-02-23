@@ -1,24 +1,21 @@
 package com.raywenderlich.ticky.fragments
 
-import android.animation.ObjectAnimator
 import android.content.Context
-import android.content.res.AssetManager
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewAnimationUtils
 import android.view.ViewGroup
-import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
 import android.view.animation.AnimationUtils
-import android.view.animation.BounceInterpolator
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.raywenderlich.ticky.R
+import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.onboarding.*
 import kotlinx.android.synthetic.main.onboarding.view.*
+
 
 class OnboardingFragment: Fragment() {
 
@@ -30,7 +27,7 @@ class OnboardingFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = LayoutInflater.from(context).inflate(R.layout.onboarding , container , false)
+        val view = LayoutInflater.from(context).inflate(R.layout.onboarding, container, false)
 
 
         return view
@@ -39,10 +36,10 @@ class OnboardingFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         onboarding_button.setOnClickListener {
-           // myFirstTryToAnimate()
-          // mySecondTryToAnimate()
+           myFirstTryToAnimate()
+         // mySecondTryToAnimate()
 
-          listener?.buttonClicked()
+       // listener?.buttonClicked()
 
         }
 
@@ -50,26 +47,86 @@ class OnboardingFragment: Fragment() {
 
     private fun mySecondTryToAnimate() {
 
-        val rootHeight = onboarding_button.maxHeight
+        val rootHeight = Math.max(tralivali.width, tralivali.height / 2)
 
-        val centerx = onboarding_button.width
-        val centery = onboarding_button.width
+        val centerx = tralivali.measuredWidth
+        val centery = tralivali.measuredHeight
 
-        val circularReveal = ViewAnimationUtils.createCircularReveal(onboarding_button , centerx, centery, 0f , rootHeight.toFloat() )
+        val circular = ViewAnimationUtils.createCircularReveal(
+            onboarding_button,
+            centerx.toInt(),
+            centery.toInt(),
+            0f,
+            rootHeight.toFloat()
+        )
+
+        // val circularReveal = ViewAnimationUtils.createCircularReveal(onboarding_button , centerx, centery, 0f , rootHeight.toFloat() )
 
 
-        circularReveal.duration = 8000
+        circular.duration = 2000
+        circular.start()
+      //  circularReveal.duration = 800
       //  onboarding_button.visibility = INVISIBLE
-        circularReveal.start()
+      //  circularReveal.start()
     }
 
     private fun myFirstTryToAnimate() {
 
-        val onboardingButtonAnimator = ObjectAnimator.ofFloat(onboarding_button , "alpha" , 0f , 1f)
-        onboardingButtonAnimator.duration = 5000
-        onboardingButtonAnimator.interpolator = BounceInterpolator()
+      //  val scaleX = PropertyValuesHolder.ofFloat(View.SCALE_X, 4f)
+     //   val scaleY = PropertyValuesHolder.ofFloat(View.SCALE_Y, 14f)
+       // val animations = ObjectAnimator.ofPropertyValuesHolder(onboarding_button1, scaleX, scaleY)
+        val fadeOutAnim = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out_anim)
+        val fadeOutAnim1 = AnimationUtils.loadAnimation(requireContext() , R.anim.onboarding_button_animation)
+        val animation123 = AnimationUtils.loadAnimation(requireContext(), R.anim.scale_from_button)
+        val whiteAnimation = AnimationUtils.loadAnimation(requireContext() , R.anim.scale_white_dot)
+        fadeOutAnim1.duration = 700
+        fadeOutAnim.duration = 200
+        animation123.duration = 500
+        whiteAnimation.duration = 500
 
-        onboardingButtonAnimator.start()
+
+
+        onboarding_button1.startAnimation(animation123)
+
+        animation123.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(arg0: Animation) {
+                onboarding_button.startAnimation(fadeOutAnim1)
+
+            }
+            override fun onAnimationRepeat(arg0: Animation) {}
+            override fun onAnimationEnd(arg0: Animation) {
+
+                onboarding_button.visibility = INVISIBLE
+
+                white_circular.startAnimation(whiteAnimation)
+                white_circular.visibility = VISIBLE
+                whiteAnimation.setAnimationListener(object: Animation.AnimationListener{
+                    override fun onAnimationStart(animation: Animation?) {
+
+                    }
+
+                    override fun onAnimationEnd(animation: Animation?) {
+                        listener?.buttonClicked()
+                    }
+
+                    override fun onAnimationRepeat(animation: Animation?) {
+                    }
+
+                } )
+
+
+            }
+        })
+
+
+        //  animations.duration = 7000
+        imageView.startAnimation(fadeOutAnim)
+        imageView.visibility = INVISIBLE
+        textView.startAnimation(fadeOutAnim)
+        textView.visibility = INVISIBLE
+        textView2.startAnimation(fadeOutAnim)
+        textView2.visibility = INVISIBLE
+
 
     }
 

@@ -23,31 +23,32 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     private var checkedTaskList = ArrayList<Taskie>()
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun setData(task: Taskie , holder: TodoListViewHolder) {
+        fun setData(task: Taskie , holder: TodoListViewHolder , position: Int) {
             itemView.setOnLongClickListener {
+
+
                 if (!task.checked) {
                     task.checked = true
-
                     itemView.linearLayout.setBackgroundResource(R.drawable.selected_item)
                     itemView.checkBox.setButtonDrawable(R.drawable.ic_rectangle_completed)
                     taskList1.add(task)
                     listener?.onChecked(taskList1)
 
 
-                }
-                else {
+
+                } else {
                     task.checked = false
                     holder.itemView.checkBox.isChecked = false
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
                     taskList1.remove(task)
                     listener?.onChecked(taskList1)
-                    notifyDataSetChanged()
+
                 }
 
-                true
-            }
 
+                    true
+                }
 
 
 //            itemView.checkBox.setOnClickListener {
@@ -60,13 +61,16 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 //                notifyDataSetChanged()
 //
 //            }
-        }
-        fun checkTask(task: Taskie){
+            }
+
+        fun checkTask(task: Taskie , holder: TodoListViewHolder ){
             itemView.checkBox.setOnClickListener {
 
 
+
+
                 task.selected = true
-                 listener2?.updateTask(task)
+                listener2?.updateTask(task)
 
 
 
@@ -99,12 +103,13 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         val currentItem = (taskList[position])
 
 
-        holder.checkTask(currentItem)
+
+        holder.checkTask(currentItem , holder )
 
         holder.itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
 
         holder.itemView.checkBox.isChecked = false
-        holder.setData(currentItem , holder)
+        holder.setData(currentItem , holder , position)
 
 
 

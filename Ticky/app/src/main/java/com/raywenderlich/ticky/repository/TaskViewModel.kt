@@ -15,7 +15,7 @@ class TaskViewModel(private val repository: TaskieRepository ): ViewModel() {
 
 
 
-    var colorLIveData = repository.getTasksByColor()
+    var colorLIveData = repository.getData()
 
      fun getTaskList() : LiveData<List<Taskie>> {
          return repository.getData()

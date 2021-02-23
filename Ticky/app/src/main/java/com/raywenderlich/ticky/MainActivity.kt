@@ -128,11 +128,15 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         }
     }
 
+
+
+
     private fun onboarrding() {
-        supportFragmentManager
-                .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
-                .replace(R.id.frame_id, onboardingFrag)
+
+               supportFragmentManager
+               .beginTransaction()
+               .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+               .replace(R.id.frame_id, onboardingFrag)
                 .commit()
 
 

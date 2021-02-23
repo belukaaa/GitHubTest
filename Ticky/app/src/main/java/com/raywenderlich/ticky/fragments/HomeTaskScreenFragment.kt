@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.media.Image
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -154,15 +155,13 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         done_button.setOnClickListener {
-
-
             list.forEach { task ->
                 task.selected = true
                 task.checked = false
                 mTaskViewModel.updateTask(task)
             }
+            list.clear()
             adapter.notifyDataSetChanged()
-
             hideDeleteDonebttns()
         }
         view.textView5.setOnClickListener {
@@ -756,40 +755,40 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             }
 
             if (month == 0) {
-                datetime1.text = ("January,$year")
+                datetime1.text = ("January, $year")
             }
             if (month == 1) {
-                datetime1.text = ("February,$year")
+                datetime1.text = ("February, $year")
             }
             if (month == 2) {
-                datetime1.text = ("March,$year")
+                datetime1.text = ("March, $year")
             }
             if (month == 3) {
-                datetime1.text = ("April,$year")
+                datetime1.text = ("April, $year")
             }
             if (month == 4) {
-                datetime1.text = ("May,$year")
+                datetime1.text = ("May, $year")
             }
             if (month == 5) {
-                datetime1.text = ("June,$year")
+                datetime1.text = ("June, $year")
             }
             if (month == 6) {
-                datetime1.text = ("July,$year")
+                datetime1.text = ("July, $year")
             }
             if (month == 7) {
-                datetime1.text = ("August,$year")
+                datetime1.text = ("August, $year")
             }
             if (month == 8) {
-                datetime1.text = ("September,$year")
+                datetime1.text = ("September, $year")
             }
             if (month == 9) {
-                datetime1.text = ("October,$year")
+                datetime1.text = ("October, $year")
             }
             if (month == 10) {
-                datetime1.text = ("November,$year")
+                datetime1.text = ("November, $year")
             }
             if (month == 11) {
-                datetime1.text = ("December,$year")
+                datetime1.text = ("December, $year")
             }
 
 
@@ -832,8 +831,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     }
     override fun onChecked(list : List<Taskie>) {
         this.list = list as ArrayList<Taskie>
-
-
         if (list.isEmpty()) {
             hideDeleteDonebttns()
         } else {
@@ -849,6 +846,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         this.checkedList = list as ArrayList<Taskie>
 
         selectedAdapter.setSelectedData(checkedList)
+
 
 
     }
@@ -868,6 +866,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
     override fun updateTaskie(task: Taskie) {
         mTaskViewModel.updateTask(task)
+        hideDeleteDonebttns()
     }
 
    fun sortBy(sort: String) {
