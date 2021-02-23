@@ -1,9 +1,11 @@
 package com.raywenderlich.ticky.fragments
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.TaskStackBuilder.create
 import android.content.Context
 import android.content.IntentFilter.create
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -145,21 +147,18 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             listener1?.taskAdd()
         }
         view.back_to_tasks.setOnClickListener {
+            setToDefs()
             listener?.bttnClicked()
 
         }
 
         view.textView4.setOnClickListener {
-            TASK_COLOR = ""
-            TASK_DATE = ""
-            Task_input.text.clear()
+            setToDefs()
             listener?.bttnClicked()
 
         }
         view.cancel_selecting2.setOnClickListener {
-            TASK_COLOR = ""
-            TASK_DATE = ""
-            Task_input.text.clear()
+           setToDefs()
             listener?.bttnClicked()
         }
 
@@ -172,6 +171,13 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         }
 
 
+    }
+    private fun setToDefs(){
+        TASK_COLOR = ""
+        TASK_DATE = ""
+        TASK_DATE1 = 999999999999999999
+        TASK_COLORED = 10
+        Task_input.text.clear()
     }
 
     private fun setToFalse() {
@@ -480,10 +486,18 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         val month = calendar.get(Calendar.MONTH)
         val year = calendar.get(Calendar.YEAR)
 
+// AlertDialog.THEME_DEVICE_DEFAULT_DARK
 
         val datePickerDialog =
-            DatePickerDialog(requireContext(), this, year, month, day)
+            DatePickerDialog(requireContext(),R.style.DatePickerDialog, this, year, month, day)
         datePickerDialog.show()
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+        datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+
+
+
+        // val datepickerdialog = DatePickerDialog(requireContext() , R.style.DatePickerDialog , this , year , month , day )
+     //   datepickerdialog.show()
     }
 
 
@@ -503,11 +517,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         if(title.isNotEmpty()){
             val task = Taskie(0, title, color, datetime, checked, selected, dateLong, sortingColor)
             mTaskViewModel.addTask(task)
-            TASK_DATE = ""
-            TASK_COLOR = ""
-            TASK_COLORED = 10
-            TASK_DATE1 = 999999999999999999
-            Task_input.text.clear()
+            setToDefs()
             Toast.makeText(requireContext(), " ADDED", Toast.LENGTH_LONG).show()
 
         }

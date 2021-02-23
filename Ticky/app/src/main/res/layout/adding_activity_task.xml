@@ -234,6 +234,7 @@
         app:layout_constraintTop_toBottomOf="@+id/Task_input" />
 
     <Button
+        android:enabled="false"
         android:clickable="false"
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
