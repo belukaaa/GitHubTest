@@ -98,7 +98,7 @@
         android:fontFamily="@font/ubuntu_bold"
         android:hint="@string/type_your_text_here"
         android:inputType="textCapSentences|textMultiLine"
-        android:maxLines="4"
+        android:maxLines="3"
         android:textCursorDrawable="@drawable/sticky"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -863,6 +863,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
     override fun updateTask(task : Taskie) {
         mTaskViewModel.updateTask(task)
+        hideDeleteDonebttns()
     }
 
     override fun updateTaskie(task: Taskie) {
