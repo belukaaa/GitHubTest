@@ -175,8 +175,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         val dialog = CustomDialogFragment()
 
         dialog.show(childFragmentManager , "CustomDialog")
-
-
     }
     private fun initViewModel(context: Context) {
         taskDB = TaskieDatabase.getDatabase(context)
@@ -191,140 +189,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             return  HomeTaskScreenFragment()
         }
     }
-    private fun setDate() {
-
-        val c = Calendar.getInstance()
-        val year = c.get(Calendar.YEAR)
-        val month = c.get(Calendar.MONTH)
-
-
-
-        val day = c.get(Calendar.DAY_OF_WEEK)
-
-        val dayOfTheMonth = c.get(Calendar.DAY_OF_MONTH)
-
-         if(month == 0) {
-            datetime1.text = ("January,$year")
-        }
-        else if(month == 1) {
-            datetime1.text = ("February,$year")
-        }
-        else if(month == 2) {
-            datetime1.text = ("March,$year")
-        }
-        else if(month == 3) {
-            datetime1.text = ("April,$year")
-        }
-        else if(month == 4) {
-            datetime1.text = ("May,$year")
-        }
-        else if(month == 5) {
-            datetime1.text = ("June,$year")
-        }
-        else if(month == 6) {
-            datetime1.text = ("July,$year")
-        }
-        else if(month == 7) {
-            datetime1.text = ("August,$year")
-        }
-        else if(month == 8) {
-            datetime1.text = ("September,$year")
-        }
-        else if(month == 9) {
-            datetime1.text = ("October,$year")
-        }
-        else if(month == 10) {
-            datetime1.text = ("November,$year")
-        }
-        else if(month == 11){
-            datetime1.text = ("December,$year")
-        }
-
-
-
-        when (day) {
-            1 -> {
-                monday1.text = (dayOfTheMonth-6) .toString()
-                tuesday1.text = (dayOfTheMonth - 5).toString()
-                wednesday1.text = (dayOfTheMonth - 4).toString()
-                thursday1.text = (dayOfTheMonth - 3).toString()
-                friday1.text = (dayOfTheMonth - 2).toString()
-                saturday1.text = (dayOfTheMonth -1).toString()
-                sunday1.text = (dayOfTheMonth).toString()
-
-            }
-            2 -> {
-
-                monday1.text = dayOfTheMonth.toString()
-                tuesday1.text = (dayOfTheMonth + 1).toString()
-                wednesday1.text = (dayOfTheMonth + 2).toString()
-                thursday1.text = (dayOfTheMonth + 3).toString()
-                friday1.text = (dayOfTheMonth + 4).toString()
-                saturday1.text = (dayOfTheMonth + 5).toString()
-                sunday1.text = (dayOfTheMonth + 6).toString()
-
-            }
-            3 -> {
-
-                monday1.text = (dayOfTheMonth - 1).toString()
-                tuesday1.text = (dayOfTheMonth).toString()
-                wednesday1.text = (dayOfTheMonth + 1).toString()
-                thursday1.text = (dayOfTheMonth + 2).toString()
-                friday1.text = (dayOfTheMonth + 3).toString()
-                saturday1.text = (dayOfTheMonth + 4).toString()
-                sunday1.text = (dayOfTheMonth + 5).toString()
-
-            }
-            4 -> {
-
-                monday1.text = (dayOfTheMonth - 2).toString()
-                tuesday1.text = (dayOfTheMonth - 1).toString()
-                wednesday1.text = (dayOfTheMonth).toString()
-                thursday1.text = (dayOfTheMonth + 1).toString()
-                friday1.text = (dayOfTheMonth + 2).toString()
-                saturday1.text = (dayOfTheMonth + 3).toString()
-                sunday1.text = (dayOfTheMonth + 4).toString()
-
-            }
-            5 -> {
-
-
-                monday1.text = (dayOfTheMonth - 3).toString()
-                tuesday1.text = (dayOfTheMonth - 2).toString()
-                wednesday1.text = (dayOfTheMonth  -1).toString()
-                thursday1.text = (dayOfTheMonth).toString()
-                friday1.text = (dayOfTheMonth + 1).toString()
-                saturday1.text = (dayOfTheMonth + 2).toString()
-                sunday1.text = (dayOfTheMonth+ 3 ).toString()
-
-            }
-            6 -> {
-
-
-                monday1.text = (dayOfTheMonth - 4).toString()
-                tuesday1.text = (dayOfTheMonth - 3).toString()
-                wednesday1.text = (dayOfTheMonth -2).toString()
-                thursday1.text = (dayOfTheMonth-1).toString()
-                friday1.text = (dayOfTheMonth ).toString()
-                saturday1.text = (dayOfTheMonth + 1).toString()
-                sunday1.text = (dayOfTheMonth+ 2 ).toString()
-
-            }
-            else -> {
-
-                monday1.text = (dayOfTheMonth - 5).toString()
-                tuesday1.text = (dayOfTheMonth - 4).toString()
-                wednesday1.text = (dayOfTheMonth - 3).toString()
-                thursday1.text = (dayOfTheMonth - 2).toString()
-                friday1.text = (dayOfTheMonth -1).toString()
-                saturday1.text = (dayOfTheMonth ).toString()
-                sunday1.text = (dayOfTheMonth + 1).toString()
-
-            }
-        }
-
-    }
-
     private fun setDatee(){
         val c = Calendar.getInstance()
         val month = c.get(Calendar.MONTH)
@@ -332,8 +196,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         val dayOfWeek = c.get(Calendar.DAY_OF_WEEK)
         val dayOfMonth = c.get(Calendar.DAY_OF_MONTH)
-
-
 
         monday1.text = (dayOfMonth - 2).toString()
         tuesday1.text = (dayOfMonth - 1).toString()
@@ -532,72 +394,58 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             saturday1.text = "2"
             friday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 7) {
-
             sunday1.text = "3"
             saturday1.text = "2"
             friday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 9) {
-
             sunday1.text = "3"
             saturday1.text = "2"
             friday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 11) {
-
             sunday1.text = "3"
             saturday1.text = "2"
             friday1.text = "1"
         }
-
         else if (dayOfMonth == 31 && month == 0) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 2) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 4) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 6) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 7) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 9) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
         else if (dayOfMonth == 31 && month == 11) {
-
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
@@ -606,15 +454,12 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         else if (dayOfMonth == 27 && month == 3) {
             sunday1.text = "1"
         }
-
         else if (dayOfMonth == 27 && month == 5) {
             sunday1.text = "1"
         }
-
         else if (dayOfMonth == 27 && month == 8) {
             sunday1.text = "1"
         }
-
         else if (dayOfMonth == 27 && month == 10) {
             sunday1.text = "1"
         }
@@ -622,17 +467,14 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             sunday1.text = "2"
             saturday1.text = "1"
         }
-
         else if (dayOfMonth == 28 && month == 5) {
             sunday1.text = "2"
             saturday1.text = "1"
         }
-
         else if (dayOfMonth == 28 && month == 8) {
             sunday1.text = "2"
             saturday1.text = "1"
         }
-
         else if (dayOfMonth == 28 && month == 10) {
             sunday1.text = "2"
             saturday1.text = "1"
@@ -663,21 +505,18 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             friday1.text = "2"
             thursday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 5) {
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 8) {
             sunday1.text = "4"
             saturday1.text = "3"
             friday1.text = "2"
             thursday1.text = "1"
         }
-
         else if (dayOfMonth == 30 && month == 10) {
             sunday1.text = "4"
             saturday1.text = "3"
@@ -690,8 +529,6 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             friday1.text = "2"
             thursday1.text = "1"
         }
-
-
         if (dayOfWeek == 0) {
                 Monday1.text = "T"
                 monday21.text = "F"
@@ -751,9 +588,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
                 monday61.text = "S"
                 monday71.text = "M"
                 monday81.text = "T"
-
             }
-
             if (month == 0) {
                 datetime1.text = ("January, $year")
             }
@@ -790,37 +625,19 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             if (month == 11) {
                 datetime1.text = ("December, $year")
             }
-
-
-
-
-
-
     }
-
-
     private var listener : HomeTaskScreenButton? =null
-
-  //  private var listener1 : UnselectAll ? = null
 
     interface HomeTaskScreenButton {
         fun homeTaskScrenButton()
     }
-//    interface UnselectAll {
-//        fun UnselectAllTasks()
-//    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         listener = context as HomeTaskScreenButton
-//        listener1 = context as UnselectAll
     }
-
     override fun onDetach() {
         super.onDetach()
         listener = null
-    //    listener1 = null
-
     }
     private fun hideDeleteDonebttns(){
         selected_item_funcs.visibility =View.INVISIBLE
@@ -836,26 +653,17 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         } else {
             showDeleteDonebtttns()
         }
-
     }
-
-
-
     override fun unSelect(list: List<Taskie>) {
 
         this.checkedList = list as ArrayList<Taskie>
 
         selectedAdapter.setSelectedData(checkedList)
 
-
-
     }
-
     override fun unSelectSelected(list: List<Taskie>) {
 
         this.selectedList = list as ArrayList<Taskie>
-
-
 
     }
 
@@ -868,34 +676,4 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         mTaskViewModel.updateTask(task)
         hideDeleteDonebttns()
     }
-
-   fun sortBy(sort: String) {
-        this.sortBy = sort
-
-        Toast.makeText(context, sort, Toast.LENGTH_SHORT).show()
-
-       if (sortBy == "Date added") {
-           mTaskViewModel.getSelectedData().observe(viewLifecycleOwner , Observer {
-               adapter.setData(it)
-
-           })
-       }
-        else if (sortBy == "Due date"){
-            mTaskViewModel.getTasksByDate().observe(viewLifecycleOwner , Observer {
-                adapter.setData(it)
-            })
-
-       }
-       else if (sortBy == "Color label") {
-
-           mTaskViewModel.colorLIveData.observe(viewLifecycleOwner , Observer{
-               adapter.setData(it)
-           })
-       }
-
-
-    }
-
-
-
 }

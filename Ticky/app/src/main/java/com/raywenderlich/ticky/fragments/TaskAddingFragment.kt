@@ -1,11 +1,9 @@
 package com.raywenderlich.ticky.fragments
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
-import android.app.TaskStackBuilder.create
 import android.content.Context
-import android.content.IntentFilter.create
 import android.graphics.Color
+import android.graphics.Rect
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
@@ -30,10 +29,10 @@ import kotlinx.android.synthetic.main.adding_activity_task.*
 import kotlinx.android.synthetic.main.adding_activity_task.view.*
 import kotlinx.android.synthetic.main.onboarding.*
 import kotlinx.android.synthetic.main.todo_list_view_holder.*
-import java.net.URI.create
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
@@ -70,7 +69,17 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
 
+
+        //
+       // })
+       //// view.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener {
+         //   val heightDiff: Int = view.getRootView().getHeight() - view.getHeight()
+        //    // IF height diff is more then 150, consider keyboard as visible.
+       //     Log.e("TAG", "height is $heightDiff")
+     //   })
+
         initViewModel()
+
 
 
         return view
@@ -86,15 +95,20 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setKeyboardHeight(view)
+
+
+
         val itemImageView = view.Task_input
-        ViewCompat.setTransitionName(itemImageView , "item_image")
+        ViewCompat.setTransitionName(itemImageView, "item_image")
 
         val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(view.Task_input, InputMethodManager.SHOW_IMPLICIT)
-        val btt1 = AnimationUtils.loadAnimation(context , R.anim.btt2)
+        val btt1 = AnimationUtils.loadAnimation(context, R.anim.btt2)
 
         val oval1 = oval1 as Button
         val oval2 = oval2 as Button
@@ -172,6 +186,26 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
     }
+
+    private fun setKeyboardHeight(view: View) {
+        var oneTry = true
+
+        if(oneTry) {
+            view.saveButton.viewTreeObserver.addOnGlobalLayoutListener(OnGlobalLayoutListener {
+                val height = task_adding_layout?.height
+                Log.w("Foo", String.format("layout height: %d", height))
+                val r = Rect()
+                task_adding_layout?.getWindowVisibleDisplayFrame(r)
+                val visible = r.bottom - r.top
+                Log.w("Foo", String.format("visible height: %d", visible))
+                Log.w("Foo", String.format("keyboard height: %d", height?.minus(visible)))
+                oneTry = false
+            })
+        }else {
+            oneTry = true
+        }
+    }
+
     private fun setToDefs(){
         TASK_COLOR = ""
         TASK_DATE = ""
@@ -208,7 +242,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
     private fun disableEnable() {
 
-        view?.Task_input?.addTextChangedListener(object : TextWatcher{
+        view?.Task_input?.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 saveButton.setBackgroundResource(R.drawable.onboarding_button)
 
@@ -216,11 +250,11 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-                if (Task_input.text.toString().trim( {it <= ' '}).isEmpty()){
+                if (Task_input.text.toString().trim({ it <= ' ' }).isEmpty()) {
                     saveButton.setEnabled(false)
                     saveButton.setBackgroundResource(R.drawable.onboarding_button)
 
-                }else {
+                } else {
 
                     saveButton.setEnabled(true)
                     saveButton.setBackgroundResource(R.drawable.disabled_save_button)
@@ -230,7 +264,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-              //  saveButton.setBackgroundResource(R.drawable.disabled_save_button)
+                //  saveButton.setBackgroundResource(R.drawable.disabled_save_button)
 
             }
 
@@ -489,7 +523,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 // AlertDialog.THEME_DEVICE_DEFAULT_DARK
 
         val datePickerDialog =
-            DatePickerDialog(requireContext(),R.style.DatePickerDialog, this, year, month, day)
+            DatePickerDialog(requireContext(), R.style.DatePickerDialog, this, year, month, day)
         datePickerDialog.show()
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
