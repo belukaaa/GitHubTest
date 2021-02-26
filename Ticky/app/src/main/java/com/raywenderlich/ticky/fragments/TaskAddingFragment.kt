@@ -1,5 +1,6 @@
 package com.raywenderlich.ticky.fragments
 
+import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.Color
@@ -10,12 +11,15 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.*
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -27,7 +31,6 @@ import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
 import kotlinx.android.synthetic.main.adding_activity_task.*
 import kotlinx.android.synthetic.main.adding_activity_task.view.*
-import kotlinx.android.synthetic.main.onboarding.*
 import kotlinx.android.synthetic.main.todo_list_view_holder.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -41,6 +44,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     var TASK_DATE1: Long? = 999999999999999999
     var TASK_COLORED: Int = 10
 
+    var KEYOBIARD_HEIGHT : Int? = 0
     private var CIRCLE_POSITION1: Boolean = false
     private var CIRCLE_POSITION2: Boolean = false
     private var CIRCLE_POSITION3: Boolean = false
@@ -66,6 +70,8 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
     ): View? {
 
         val view = inflater.inflate(R.layout.adding_activity_task, container, false)
+
+
 
 
 
@@ -98,11 +104,6 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        setKeyboardHeight(view)
-
-
-
         val itemImageView = view.Task_input
         ViewCompat.setTransitionName(itemImageView, "item_image")
 
@@ -139,6 +140,8 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         cancelButton.startAnimation(btt1)
         input.startAnimation(btt1)
         textView6.startAnimation(btt1)
+
+
 
         dateCalendar.visibility = INVISIBLE
         xoo.visibility = INVISIBLE
@@ -185,25 +188,95 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         }
 
 
+       // setToKeyboardHeight(cancelButton , setKeyboardHeight(view))
+      //  setToKeyboardHeight(cancelText , setKeyboardHeight(view))
+       // setToKeyboardHeight(saveButton , setKeyboardHeight(view))
+
+      //  setToKeyboardHeight(cancelText , setKeyboardHeight(view)!!)
+
+
+       // checkKeyboardHeight(task_adding_layout)
+       // setKeyboardHeight(task_adding_layout)
+       changeKeyboardHeight(view)
+
     }
 
-    private fun setKeyboardHeight(view: View) {
-        var oneTry = true
 
-        if(oneTry) {
-            view.saveButton.viewTreeObserver.addOnGlobalLayoutListener(OnGlobalLayoutListener {
-                val height = task_adding_layout?.height
-                Log.w("Foo", String.format("layout height: %d", height))
-                val r = Rect()
-                task_adding_layout?.getWindowVisibleDisplayFrame(r)
-                val visible = r.bottom - r.top
-                Log.w("Foo", String.format("visible height: %d", visible))
-                Log.w("Foo", String.format("keyboard height: %d", height?.minus(visible)))
-                oneTry = false
-            })
-        }else {
-            oneTry = true
-        }
+    private fun checkKeyboardHeight(parentLayout: View) {
+        parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(OnGlobalLayoutListener {
+
+
+            val screenHeight: Int = parentLayout.getRootView().getHeight()
+            val r = Rect()
+            parentLayout.getWindowVisibleDisplayFrame(r)
+            val keyboardHeight = screenHeight - r.bottom
+
+
+
+            Log.w("Foo", String.format("keyboard height: %d", keyboardHeight))
+
+            val params = view?.saveButton?.layoutParams as ConstraintLayout.LayoutParams
+            params.bottomMargin = keyboardHeight
+            textView4.layoutParams = params
+
+
+        })
+
+    }
+    private fun changeKeyboardHeight(view: View) {
+        view.getViewTreeObserver().addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            private val windowVisibleDisplayFrame = Rect()
+            override fun onGlobalLayout() {
+                view.getWindowVisibleDisplayFrame(windowVisibleDisplayFrame)
+                val visibleDecorViewHeight = windowVisibleDisplayFrame.height()
+
+                val currentKeyboardHeight: Int =
+                    view.getHeight() - windowVisibleDisplayFrame.bottom
+
+
+                Log.w("Foo", String.format("keyboard height: %d", currentKeyboardHeight))
+                if (currentKeyboardHeight > 100) {
+
+                    view.textView4.setPadding(0,0,0,currentKeyboardHeight)
+                    view.cancel_selecting2.setPadding(0,0,0,currentKeyboardHeight)
+
+                } else {
+                    view.textView4.setPadding(0, 0, 0, 0)
+                    view.cancel_selecting2.setPadding(0, 0, 0, 0)
+                }
+
+            }
+
+
+        })
+
+    }
+
+
+     private fun setKeyboardHeight(view: View)  {
+         var result : Int? = 0
+         view.viewTreeObserver.addOnGlobalLayoutListener(OnGlobalLayoutListener {
+             val height = task_adding_layout?.height
+             //   Log.w("Foo", String.format("layout height: %d", height))
+             val r = Rect()
+             task_adding_layout?.getWindowVisibleDisplayFrame(r)
+             val visible = r.bottom - r.top
+             //   Log.w("Foo", String.format("visible height: %d", visible))
+             Log.w("Foo", String.format("keyboard height: %d", height?.minus(visible)))
+             result = height?.minus(visible)
+            // val animator = ObjectAnimator.ofFloat(view.saveButton, View.TRANSLATION_Y,0f, -200f)
+           //  animator.duration = 5000
+           //  animator.start()
+
+             //result = height - visible
+             //     Log.w("Foo", String.format("RESULT: %d",))
+
+         })
+         Log.w("Foo", "here is da $KEYOBIARD_HEIGHT")
+
+
+
+
     }
 
     private fun setToDefs(){
