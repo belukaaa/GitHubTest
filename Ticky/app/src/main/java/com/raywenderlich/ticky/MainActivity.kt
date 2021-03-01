@@ -1,28 +1,23 @@
 package com.raywenderlich.ticky
 
-import android.animation.ObjectAnimator
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
-import android.view.WindowManager
-import android.widget.RadioButton
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.commit
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.ticky.db.TaskieDatabase
 import com.raywenderlich.ticky.db.dao.TaskieDao
 import com.raywenderlich.ticky.fragments.*
 import com.raywenderlich.ticky.repository.Factory
 import com.raywenderlich.ticky.repository.TaskViewModel
 import com.raywenderlich.ticky.repository.TaskieRepository
-import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
 import kotlinx.android.synthetic.main.adding_activity_task.*
 import kotlinx.android.synthetic.main.adding_activity_task.view.*
 import kotlinx.android.synthetic.main.dialog_fragment.*
@@ -37,7 +32,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     FirstScreenFragment.Click, TaskAddingFragment.BttnClicked, TaskAddingFragment.Task_addingButton,
-    HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting {
+    HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting  {
 
 
 
@@ -87,14 +82,14 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
     private fun observe(){
         mTaskViewModel.colorLIveData.observe(this, Observer {
-            if (it.isEmpty()){
+            if (it.isEmpty()) {
                 firstScreen()
             }
         })
     }
     private fun observer(){
-        mTaskViewModel.colorLIveData.observe(this , Observer {
-            if(it.isNotEmpty()){
+        mTaskViewModel.colorLIveData.observe(this, Observer {
+            if (it.isNotEmpty()) {
                 homeScreen()
             }
         })
@@ -107,13 +102,13 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             CoroutineScope(Dispatchers.IO).launch {
                 withContext(Main) {
 
-                    mTaskViewModel.colorLIveData.observe(this@MainActivity , Observer {
-                        if(it.isEmpty()){
+                    mTaskViewModel.colorLIveData.observe(this@MainActivity, Observer {
+                        if (it.isEmpty()) {
                             firstScreen()
                         }
                     })
-                    mTaskViewModel.colorLIveData.observe(this@MainActivity , Observer {
-                        if(it.isNotEmpty()){
+                    mTaskViewModel.colorLIveData.observe(this@MainActivity, Observer {
+                        if (it.isNotEmpty()) {
                             homeScreen()
                         }
                     })
@@ -135,7 +130,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
                supportFragmentManager
                .beginTransaction()
-               .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+               .setCustomAnimations(
+                   R.anim.slide_in,
+                   R.anim.first_fragment_animation,
+                   R.anim.fade_in,
+                   R.anim.slide_out
+               )
                .replace(R.id.frame_id, onboardingFrag)
                 .commit()
 
@@ -145,11 +145,10 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
     override fun bttnClicked() {
 
-        mTaskViewModel.colorLIveData.observe(this , Observer {
-            if (it.isEmpty()){
+        mTaskViewModel.colorLIveData.observe(this, Observer {
+            if (it.isEmpty()) {
                 observe()
-            }
-            else {
+            } else {
                 observer()
             }
         })
@@ -158,7 +157,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     private fun firstScreen() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.first_fragment_animation,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.frame_id, FirstScreenFrag)
             .commit()
     }
@@ -166,7 +170,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     private fun homeScreen() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.first_fragment_animation,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.frame_id, homeTaskScreenFragment)
             .commit()
     }
@@ -174,7 +183,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun buttonClicked() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in , R.anim.first_fragment_animation , R.anim.fade_in , R.anim.slide_out)
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.first_fragment_animation,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
             .replace(R.id.frame_id, FirstScreenFrag)
             .commit()
     }
@@ -182,7 +196,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun Clicked() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_up,R.anim.slide_out_down, R.anim.slide_in_up , R.anim.slide_out_down)
+            .setCustomAnimations(
+                R.anim.slide_in_up,
+                R.anim.slide_out_down,
+                R.anim.slide_in_up,
+                R.anim.slide_out_down
+            )
             .replace(R.id.frame_id, addTaskFrag)
             .commit()
     }
@@ -192,7 +211,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun taskAdd() {
         supportFragmentManager
             .beginTransaction()
-            .addSharedElement(Task_input , Task_input.transitionName)
+            .addSharedElement(Task_input, Task_input.transitionName)
             .replace(R.id.frame_id, homeTaskScreenFragment)
             .commit()
     }
@@ -200,7 +219,12 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun homeTaskScrenButton() {
         supportFragmentManager
             .beginTransaction()
-            .setCustomAnimations(R.anim.slide_in_up,R.anim.slide_out_down, R.anim.slide_in_up , R.anim.slide_out_down)
+            .setCustomAnimations(
+                R.anim.slide_in_up,
+                R.anim.slide_out_down,
+                R.anim.slide_in_up,
+                R.anim.slide_out_down
+            )
             .replace(R.id.frame_id, addTaskFrag)
             .commit()
     }
@@ -208,19 +232,19 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     override fun sortBy(sort: String) {
         Log.e("DADE", "Movida -> $sort")
         if (sort == "Date added") {
-            mTaskViewModel.getSelectedData().observe(this , Observer {
+            mTaskViewModel.getSelectedData().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
             Toast.makeText(applicationContext, "Sorted by creation date", Toast.LENGTH_SHORT).show()
         }
         else if (sort == "Due date") {
-            mTaskViewModel.getTasksByDate().observe(this , Observer {
+            mTaskViewModel.getTasksByDate().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
             Toast.makeText(applicationContext, "Sorted by date", Toast.LENGTH_SHORT).show()
         }
         else if (sort == "Color label") {
-            mTaskViewModel.sortTasksByColor().observe(this , Observer {
+            mTaskViewModel.sortTasksByColor().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
             Toast.makeText(applicationContext, "Sorted by color", Toast.LENGTH_SHORT).show()
@@ -242,6 +266,8 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 //
 //        }
     }
+
+
 
 
 //    override fun getDate() {

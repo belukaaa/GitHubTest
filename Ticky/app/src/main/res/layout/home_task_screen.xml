@@ -377,7 +377,7 @@
             android:id="@+id/selected_item_funcs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -392,6 +392,7 @@
                 android:layout_marginStart="30dp"
                 android:background="@drawable/delete_task_button"
                 android:drawableStart="@drawable/gone_task"
+                android:layout_marginBottom="24dp"
                 android:drawablePadding="3dp"
                 android:paddingStart="30dp"
                 android:paddingEnd="30dp"
@@ -431,6 +432,7 @@
                 app:layout_constraintTop_toTopOf="@+id/done_button" />
 
             <Button
+                android:layout_marginBottom="24dp"
                 android:id="@+id/cancel_selecting"
                 android:layout_width="40dp"
                 android:layout_height="40dp"

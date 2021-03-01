@@ -1,40 +1,32 @@
 package com.raywenderlich.ticky.taskrecyclerview
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.Toast
-import androidx.recyclerview.selection.ItemDetailsLookup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
-import com.raywenderlich.ticky.*
-import com.raywenderlich.ticky.fragments.HomeTaskScreenFragment
-import kotlinx.android.synthetic.main.home_task_screen.view.*
+import com.raywenderlich.ticky.R
+import com.raywenderlich.ticky.Taskie
 import kotlinx.android.synthetic.main.todo_list_view_holder.view.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder> () {
-
+    
+    private var TaskieView = ArrayList<View>()
     private var taskList1 = ArrayList<Taskie>()
     private var taskList = ArrayList<Taskie>()
     private var checkedTaskList = ArrayList<Taskie>()
-    inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
 
         fun setData(task: Taskie , holder: TodoListViewHolder , position: Int) {
             itemView.setOnLongClickListener {
-
-
                 if (!task.checked) {
                     task.checked = true
                     itemView.linearLayout.setBackgroundResource(R.drawable.selected_item)
                     itemView.checkBox.setButtonDrawable(R.drawable.ic_rectangle_completed)
                     taskList1.add(task)
-                    listener?.onChecked(taskList1)
-
-
+                    TaskieView.add(itemView)
+                    listener?.onChecked(taskList1 , TaskieView)
 
                 } else {
                     task.checked = false
@@ -42,11 +34,8 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
                     taskList1.remove(task)
-                    listener?.onChecked(taskList1)
-
+                    listener?.onChecked(taskList1, TaskieView)
                 }
-
-
                     true
                 }
 
@@ -66,13 +55,8 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         fun checkTask(task: Taskie , holder: TodoListViewHolder ){
             itemView.checkBox.setOnClickListener {
 
-
-
-
                 task.selected = true
                 listener2?.updateTask(task)
-
-
 
                 notifyDataSetChanged()
             }
@@ -82,10 +66,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
 
-
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TodoListViewHolder {
         return TodoListViewHolder(
             LayoutInflater.from(parent.context)
@@ -93,29 +74,27 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         )
 
     }
-
     override fun onBindViewHolder(holder: TodoListViewHolder, position: Int) {
-
-
-
-
 
         val currentItem = (taskList[position])
 
 
 
+
+
+
+
         holder.checkTask(currentItem , holder )
+
+
+
 
         holder.itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
 
         holder.itemView.checkBox.isChecked = false
         holder.setData(currentItem , holder , position)
 
-
-
-
         holder.itemView.task.text = currentItem.title
-
 
         if (currentItem.color == "#ff453a") {
             holder.itemView.task_color_red.visibility = View.VISIBLE
@@ -160,12 +139,20 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
     }
 
+
     override fun getItemCount(): Int = taskList.size
 
     override fun getItemId(position: Int): Long = position.toLong()
 
+    private fun setAnimation(view: View, position: Taskie) {
+        val animation = AnimationUtils.loadAnimation(view.context , R.anim.slide_out)
+        animation.duration = 5000
+        view.startAnimation(animation)
+    }
 
-
+    fun returnView (view: View) : View {
+        return view
+    }
 
     fun setData(task: List<Taskie>) {
         this.taskList.clear()
@@ -174,11 +161,13 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     }
 
 
+
+
     var listener22 : UpdateAllTasks? = null
     var listener2 : UpdateTask? = null
 
     interface UpdateAllTasks {
-        fun updateAllTasks(list : ArrayList<Taskie>)
+        fun updateAllTasks(itemView: View)
     }
     interface UpdateTask {
         fun updateTask(task: Taskie)
@@ -193,13 +182,23 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
     interface IOnClick {
-        fun onChecked(list: List<Taskie>)
+        fun onChecked(list: List<Taskie>, itemView: ArrayList<View>)
     }
 
     interface Iunselect {
         fun unSelect(list: List<Taskie>)
     }
     var listener: IOnClick? = null
+
+    var listener21 : deleteUserByAnim? = null
+
+    fun deleteUseByAnim(listener21 : deleteUserByAnim) {
+        this.listener21 = listener21
+    }
+
+    interface deleteUserByAnim {
+        fun deleteUserByAnim(task: Taskie, returnView: View)
+    }
 
     var listener1 : Iunselect? = null
 
