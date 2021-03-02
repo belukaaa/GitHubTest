@@ -43,9 +43,7 @@ class FirstScreenFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setDatee()
-
-        getDaysAgo(1)
+            setDatee()
 
         add_task_button.setOnClickListener {
             listener?.Clicked()
@@ -247,6 +245,7 @@ class FirstScreenFragment: Fragment() {
         friday.text = (dayOfMonth + 2).toString()
         saturday.text = (dayOfMonth + 3).toString()
         sunday.text = (dayOfMonth + 4).toString()
+        // 0- jan , 1 - feb , 2 march , 3 april , 4 may , 5 june , 6 jule , 7 , august , 8 sept , 9 octo , 10 nov , 11 dec
 
         if (dayOfMonth == 1 && month == 0  )  {
             monday.text = "30"
@@ -258,13 +257,13 @@ class FirstScreenFragment: Fragment() {
         }
 
         else if (dayOfMonth == 1 && month == 4  )  {
-            monday.text = "30"
-            tuesday.text = "31"
+            monday.text = "29"
+            tuesday.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 6  )  {
-            monday.text = "30"
-            tuesday.text = "31"
+            monday.text = "29"
+            tuesday.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 7  )  {
@@ -273,30 +272,31 @@ class FirstScreenFragment: Fragment() {
         }
 
         else if (dayOfMonth == 1 && month == 9  )  {
-            monday.text = "30"
-            tuesday.text = "31"
+            monday.text = "29"
+            tuesday.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 11 )  {
-            monday.text = "30"
-            tuesday.text = "31"
+            monday.text = "29"
+            tuesday.text = "30"
         }
         else if (dayOfMonth == 2 && month == 0  )  {
             monday.text = "31"
             tuesday.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
         else if (dayOfMonth == 2 && month == 2  )  {
-            monday.text = "31"
-            tuesday.text = "28"
+            monday.text = "28"
+            tuesday.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 4  )  {
-            monday.text = "31"
+            monday.text = "30"
             tuesday.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 6  )  {
-            monday.text = "31"
+            monday.text = "30"
             tuesday.text = "1"
         }
 
@@ -306,14 +306,16 @@ class FirstScreenFragment: Fragment() {
         }
 
         else if (dayOfMonth == 2 && month == 9  )  {
-            monday.text = "31"
+            monday.text = "30"
             tuesday.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 11  )  {
-            monday.text = "31"
+            monday.text = "30"
             tuesday.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 1 && month == 1){
             tuesday.text = "31"
             monday.text = "30"
@@ -323,37 +325,39 @@ class FirstScreenFragment: Fragment() {
             monday.text = "31"
         }
         else if (dayOfMonth == 1 && month == 3){
-            tuesday.text = "30"
-            monday.text = "29"
+            tuesday.text = "31"
+            monday.text = "30"
         }
         else if (dayOfMonth == 1 && month == 5){
-            tuesday.text = "30"
-            monday.text = "29"
+            tuesday.text = "31"
+            monday.text = "30"
         }
         else if (dayOfMonth == 1 && month == 8){
-            tuesday.text = "30"
-            monday.text = "29"
+            tuesday.text = "31"
+            monday.text = "30"
         }
         else if (dayOfMonth == 1 && month == 10){
-            tuesday.text = "30"
-            monday.text = "29"
+            tuesday.text = "31"
+            monday.text = "30"
         }
         else if (dayOfMonth == 2 && month == 3){
-            tuesday1.text = "1"
-            monday1.text = "30"
+            tuesday.text = "1"
+            monday.text = "31"
         }
         else if (dayOfMonth == 2 && month == 5){
             tuesday.text = "1"
-            monday.text = "30"
+            monday.text = "31"
         }
         else if (dayOfMonth == 2 && month == 8){
             tuesday.text = "1"
-            monday.text = "30"
+            monday.text = "31"
         }
         else if (dayOfMonth == 2 && month == 10){
             tuesday.text = "1"
-            monday.text = "30"
+            monday.text = "31"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 28 && month == 0) {
             sunday.text = "1"
         }
@@ -381,6 +385,7 @@ class FirstScreenFragment: Fragment() {
         else if (dayOfMonth == 28 && month == 11) {
             sunday.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
 
         else if (dayOfMonth == 29 && month == 0) {
             sunday.text = "2"
@@ -494,6 +499,8 @@ class FirstScreenFragment: Fragment() {
             friday.text = "2"
             thursday.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 27 && month == 3) {
             sunday.text = "1"
         }
@@ -607,7 +614,7 @@ class FirstScreenFragment: Fragment() {
             monday7.text = "F"
             monday8.text = "S"
         } else if (dayOfWeek == 4) {
-            Monday1.text = "M"
+            Monday.text = "M"
             monday2.text = "T"
             monday4.text = "W"
             monday5.text = "T"
@@ -616,7 +623,7 @@ class FirstScreenFragment: Fragment() {
             monday8.text = "S"
 
         } else if (dayOfWeek == 5) {
-            Monday1.text = "T"
+            Monday.text = "T"
             monday2.text = "W"
             monday4.text = "T"
             monday5.text = "F"

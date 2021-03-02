@@ -27,6 +27,8 @@ class CustomDialogFragment : DialogFragment() {
 
        dialog?.window?.setGravity(Gravity.BOTTOM)
 
+        dialog?.window?.attributes?.windowAnimations = R.style.DialogAnimation
+
         getDialog()!!.getWindow()?.setBackgroundDrawableResource(R.drawable.rounded_corners_dialog)
 
         mySharedPref = MySharedPreference(requireContext())

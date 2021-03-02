@@ -600,6 +600,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
         datePickerDialog.show()
         datePickerDialog.getButton(DatePickerDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         datePickerDialog.getButton(DatePickerDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+        //0xFF0000FF
 
 
 

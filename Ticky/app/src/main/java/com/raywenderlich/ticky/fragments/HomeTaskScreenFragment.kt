@@ -165,6 +165,9 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     private fun showDialog(){
         val dialog = CustomDialogFragment()
 
+
+
+
         dialog.show(childFragmentManager, "CustomDialog")
     }
     private fun initViewModel(context: Context) {
@@ -196,6 +199,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         friday1.text = (dayOfMonth + 2).toString()
         saturday1.text = (dayOfMonth + 3).toString()
         sunday1.text = (dayOfMonth + 4).toString()
+        // 0- jan , 1 - feb , 2 march , 3 april , 4 may , 5 june , 6 jule , 7 , august , 8 sept , 9 octo , 10 nov , 11 dec
 
         if (dayOfMonth == 1 && month == 0  )  {
             monday1.text = "30"
@@ -207,13 +211,13 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         }
 
         else if (dayOfMonth == 1 && month == 4  )  {
-            monday1.text = "30"
-            tuesday1.text = "31"
+            monday1.text = "29"
+            tuesday1.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 6  )  {
-            monday1.text = "30"
-            tuesday1.text = "31"
+            monday1.text = "29"
+            tuesday1.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 7  )  {
@@ -222,30 +226,31 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         }
 
         else if (dayOfMonth == 1 && month == 9  )  {
-            monday1.text = "30"
-            tuesday1.text = "31"
+            monday1.text = "29"
+            tuesday1.text = "30"
         }
 
         else if (dayOfMonth == 1 && month == 11 )  {
-            monday1.text = "30"
-            tuesday1.text = "31"
+            monday1.text = "29"
+            tuesday1.text = "30"
         }
         else if (dayOfMonth == 2 && month == 0  )  {
             monday1.text = "31"
             tuesday1.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
         else if (dayOfMonth == 2 && month == 2  )  {
-            monday1.text = "31"
+            monday1.text = "28"
             tuesday1.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 4  )  {
-            monday1.text = "31"
+            monday1.text = "30"
             tuesday1.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 6  )  {
-            monday1.text = "31"
+            monday1.text = "30"
             tuesday1.text = "1"
         }
 
@@ -255,54 +260,58 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         }
 
         else if (dayOfMonth == 2 && month == 9  )  {
-            monday1.text = "31"
+            monday1.text = "30"
             tuesday1.text = "1"
         }
 
         else if (dayOfMonth == 2 && month == 11  )  {
-            monday1.text = "31"
+            monday1.text = "30"
             tuesday1.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 1 && month == 1){
-            tuesday1.text = "28"
-            monday1.text = "27"
+            tuesday1.text = "31"
+            monday1.text = "30"
         }
         else if (dayOfMonth == 2 && month == 1){
             tuesday1.text = "1"
-            monday1.text = "28"
+            monday1.text = "31"
         }
         else if (dayOfMonth == 1 && month == 3){
-            tuesday1.text = "30"
-            monday1.text = "29"
+            tuesday1.text = "31"
+            monday1.text = "30"
         }
         else if (dayOfMonth == 1 && month == 5){
-            tuesday1.text = "30"
-            monday1.text = "29"
+            tuesday1.text = "31"
+            monday1.text = "30"
         }
         else if (dayOfMonth == 1 && month == 8){
-            tuesday1.text = "30"
-            monday1.text = "29"
+            tuesday1.text = "31"
+            monday1.text = "30"
         }
         else if (dayOfMonth == 1 && month == 10){
-            tuesday1.text = "30"
-            monday1.text = "29"
+            tuesday1.text = "31"
+            monday1.text = "30"
         }
         else if (dayOfMonth == 2 && month == 3){
             tuesday1.text = "1"
-            monday1.text = "30"
+            monday1.text = "31"
         }
         else if (dayOfMonth == 2 && month == 5){
             tuesday1.text = "1"
-            monday1.text = "30"
+            monday1.text = "31"
         }
         else if (dayOfMonth == 2 && month == 8){
             tuesday1.text = "1"
-            monday1.text = "30"
+            monday1.text = "31"
         }
         else if (dayOfMonth == 2 && month == 10){
             tuesday1.text = "1"
-            monday1.text = "30"
+            monday1.text = "31"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 28 && month == 0) {
             sunday1.text = "1"
         }
@@ -330,6 +339,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         else if (dayOfMonth == 28 && month == 11) {
             sunday1.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
 
         else if (dayOfMonth == 29 && month == 0) {
             sunday1.text = "2"
@@ -443,6 +453,8 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             friday1.text = "2"
             thursday1.text = "1"
         }
+        // 0- jan 31 , 1 - feb 28 , 2 march 31 , 3 april 30 , 4 may 31  , 5 june 30 , 6 jule 31 , 7 august 31 , 8 sept 30 , 9 octo 31 , 10 nov 30, 11 dec 31
+
         else if (dayOfMonth == 27 && month == 3) {
             sunday1.text = "1"
         }
@@ -680,7 +692,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         delete_task_button.setOnClickListener {
             val anim = AnimationUtils.loadAnimation(requireContext() , R.anim.slide_out)
-            anim.duration = 2000
+            anim.duration = 1500
             itemView.forEach { v ->
                 v.startAnimation(anim)
             }
@@ -691,14 +703,14 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
                 }
 
                 override fun onAnimationEnd(animation: Animation?) {
-                    mTaskViewModel.deleteUser(list)
-
 
                     list.forEach { task ->
 
                         task.checked = false
 
                     }
+                    mTaskViewModel.deleteUser(list)
+
                     hideDeleteDonebttns()
                 }
 

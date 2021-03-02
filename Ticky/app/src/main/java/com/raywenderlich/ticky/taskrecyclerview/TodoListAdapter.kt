@@ -29,11 +29,13 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     listener?.onChecked(taskList1 , TaskieView)
 
                 } else {
+
                     task.checked = false
                     holder.itemView.checkBox.isChecked = false
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
                     taskList1.remove(task)
+                    TaskieView.remove(itemView)
                     listener?.onChecked(taskList1, TaskieView)
                 }
                     true
