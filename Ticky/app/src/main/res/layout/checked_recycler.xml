@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@null"
+
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/checked_recycler1"
@@ -15,4 +18,4 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
 
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,7 @@ import com.raywenderlich.ticky.taskrecyclerview.SelectedTaskAdapter
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
 import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.view.*
+import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -156,9 +157,16 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         view.textView5.setOnClickListener {
             var data = showDialog()
         }
+        setSortingName()
     }
 
 
+    private fun setSortingName() {
+        val sortBy = mySharedPref.taskExe()
+        if (sortBy != "") {
+            view?.textView5?.text = sortBy
+        }
+    }
 
 
 
@@ -692,26 +700,29 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
         delete_task_button.setOnClickListener {
             val anim = AnimationUtils.loadAnimation(requireContext() , R.anim.slide_out)
-            anim.duration = 1500
             itemView.forEach { v ->
                 v.startAnimation(anim)
             }
+            hideDeleteDonebttns()
 
             anim.setAnimationListener(object : Animation.AnimationListener{
                 override fun onAnimationStart(animation: Animation?) {
-
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-
                     list.forEach { task ->
 
                         task.checked = false
 
                     }
+
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    itemView.forEach { v->
+                        v.alpha = 0F
+                    }
                     mTaskViewModel.deleteUser(list)
 
-                    hideDeleteDonebttns()
+
                 }
 
                 override fun onAnimationRepeat(animation: Animation?) {

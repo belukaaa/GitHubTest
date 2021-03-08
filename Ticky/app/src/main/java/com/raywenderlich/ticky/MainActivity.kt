@@ -235,18 +235,24 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             mTaskViewModel.getSelectedData().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
+            homeTaskScreenFragment.textView5.text = sort
+
             Toast.makeText(applicationContext, "Sorted by creation date", Toast.LENGTH_SHORT).show()
         }
         else if (sort == "Due date") {
             mTaskViewModel.getTasksByDate().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
+            homeTaskScreenFragment.textView5.text = sort
+
             Toast.makeText(applicationContext, "Sorted by date", Toast.LENGTH_SHORT).show()
         }
         else if (sort == "Color label") {
             mTaskViewModel.sortTasksByColor().observe(this, Observer {
                 homeTaskScreenFragment.adapter.setData(it)
             })
+            homeTaskScreenFragment.textView5.text = sort
+
             Toast.makeText(applicationContext, "Sorted by color", Toast.LENGTH_SHORT).show()
         }
 

@@ -80,10 +80,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
         val currentItem = (taskList[position])
 
-
-
-
-
+        if (position < currentItem.taskId) {
+            val anim =
+                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.slide_in_up_recycler)
+            holder.itemView.startAnimation(anim)
+        }
 
 
         holder.checkTask(currentItem , holder )
