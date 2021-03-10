@@ -1,5 +1,6 @@
 package com.raywenderlich.ticky.taskrecyclerview
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,9 @@ import kotlinx.android.synthetic.main.todo_list_view_holder.view.*
 class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder> () {
     
     private var TaskieView = ArrayList<View>()
+    private var uncheckedTaskieView = ArrayList<View>()
+    private var taskListPosition = ArrayList<Int>()
+    private var taskListPosition1 = ArrayList<Int>()
     private var taskList1 = ArrayList<Taskie>()
     private var taskList = ArrayList<Taskie>()
     private var checkedTaskList = ArrayList<Taskie>()
@@ -36,7 +40,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
                     taskList1.remove(task)
                     TaskieView.remove(itemView)
-                    listener?.onChecked(taskList1, TaskieView)
+                    listener?.onChecked(taskList1, TaskieView )
                 }
                     true
                 }
@@ -54,11 +58,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 //            }
             }
 
-        fun checkTask(task: Taskie , holder: TodoListViewHolder ){
+        fun checkTask(task: Taskie ){
             itemView.checkBox.setOnClickListener {
 
                 task.selected = true
-                listener2?.updateTask(task)
+                listener2?.updateTask(task , itemView)
 
                 notifyDataSetChanged()
             }
@@ -78,19 +82,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     }
     override fun onBindViewHolder(holder: TodoListViewHolder, position: Int) {
 
+        taskList1.clear()
+
         val currentItem = (taskList[position])
 
-        if (position < currentItem.taskId) {
-            val anim =
-                AnimationUtils.loadAnimation(holder.itemView.context, R.anim.slide_in_up_recycler)
-            holder.itemView.startAnimation(anim)
-        }
-
-
-        holder.checkTask(currentItem , holder )
-
-
-
+        holder.checkTask(currentItem)
 
         holder.itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
 
@@ -147,24 +143,12 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    private fun setAnimation(view: View, position: Taskie) {
-        val animation = AnimationUtils.loadAnimation(view.context , R.anim.slide_out)
-        animation.duration = 5000
-        view.startAnimation(animation)
-    }
-
-    fun returnView (view: View) : View {
-        return view
-    }
 
     fun setData(task: List<Taskie>) {
         this.taskList.clear()
         this.taskList.addAll(task)
         notifyDataSetChanged()
     }
-
-
-
 
     var listener22 : UpdateAllTasks? = null
     var listener2 : UpdateTask? = null
@@ -173,7 +157,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         fun updateAllTasks(itemView: View)
     }
     interface UpdateTask {
-        fun updateTask(task: Taskie)
+        fun updateTask(task: Taskie , itemView: View)
     }
     fun updateAllTasks(listener22 : UpdateAllTasks){
         this.listener22 = listener22
@@ -185,7 +169,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
     interface IOnClick {
-        fun onChecked(list: List<Taskie>, itemView: ArrayList<View>)
+        fun onChecked(list: List<Taskie>, itemView: ArrayList<View> )
     }
 
     interface Iunselect {

@@ -2,6 +2,7 @@ package com.raywenderlich.ticky.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -9,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -27,14 +29,13 @@ import com.raywenderlich.ticky.taskrecyclerview.SelectedTaskAdapter
 import com.raywenderlich.ticky.taskrecyclerview.TodoListAdapter
 import kotlinx.android.synthetic.main.home_task_screen.*
 import kotlinx.android.synthetic.main.home_task_screen.view.*
-import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.collections.ArrayList
 
 
 class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListAdapter.Iunselect , SelectedTaskAdapter.unSelectListener , TodoListAdapter.UpdateTask , SelectedTaskAdapter.updateTaskie   {
 
-    private var list = ArrayList<Taskie>()
+    private var List = ArrayList<Taskie>()
     private var checkedList = ArrayList<Taskie>()
     private var selectedList = ArrayList<Taskie>()
     private var sortBy : String = ""
@@ -132,7 +133,8 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
 
         cancel_selecting.setOnClickListener {
-            list.clear()
+            List.clear()
+
             mTaskViewModel.getSelectedData().observe(viewLifecycleOwner, Observer { user ->
                 adapter.setData(user)
             })
@@ -143,14 +145,13 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         }
 
 
-
         done_button.setOnClickListener {
-            list.forEach { task ->
+            List.forEach { task ->
                 task.selected = true
                 task.checked = false
                 mTaskViewModel.updateTask(task)
             }
-            list.clear()
+            List.clear()
             adapter.notifyDataSetChanged()
             hideDeleteDonebttns()
         }
@@ -659,20 +660,24 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
     //    listener1 = null
     }
     private fun hideDeleteDonebttns(){
-        val done_button_anim = AnimationUtils.loadAnimation(context , R.anim.done_button_anim_down)
-        val delete_button_anim = AnimationUtils.loadAnimation(context,R.anim.delete_done_button_down)
-        val x_button_anim = AnimationUtils.loadAnimation(context,R.anim.x_button_anim_down)
+        val done_button_anim = AnimationUtils.loadAnimation(context, R.anim.done_button_anim_down)
+        val delete_button_anim = AnimationUtils.loadAnimation(
+            context,
+            R.anim.delete_done_button_down
+        )
+        val x_button_anim = AnimationUtils.loadAnimation(context, R.anim.x_button_anim_down)
 
         done_button.startAnimation(done_button_anim)
         delete_task_button.startAnimation(delete_button_anim)
         cancel_selecting.startAnimation(x_button_anim)
 
-        x_button_anim.setAnimationListener(object : Animation.AnimationListener{
+        x_button_anim.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
             }
 
             override fun onAnimationEnd(animation: Animation?) {
                 selected_item_funcs.visibility = View.INVISIBLE
+
 
             }
 
@@ -684,9 +689,9 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
     }
     private fun showDeleteDonebtttns() {
-        val done_button_anim = AnimationUtils.loadAnimation(context , R.anim.done_button_anim_up)
-        val delete_button_anim = AnimationUtils.loadAnimation(context,R.anim.delete_button_anim_up)
-        val x_button_anim = AnimationUtils.loadAnimation(context,R.anim.x_button_anim_up)
+        val done_button_anim = AnimationUtils.loadAnimation(context, R.anim.done_button_anim_up)
+        val delete_button_anim = AnimationUtils.loadAnimation(context, R.anim.delete_button_anim_up)
+        val x_button_anim = AnimationUtils.loadAnimation(context, R.anim.x_button_anim_up)
 
         done_button.startAnimation(done_button_anim)
         delete_task_button.startAnimation(delete_button_anim)
@@ -695,32 +700,58 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
         selected_item_funcs.visibility = View.VISIBLE
 
     }
-    override fun onChecked(list: List<Taskie>, itemView: ArrayList<View>) {
-        this.list = list as ArrayList<Taskie>
+    override fun onChecked(
+        list: List<Taskie>,
+        itemView: ArrayList<View>
+    ) {
+        this.List = list as ArrayList<Taskie>
+
 
         delete_task_button.setOnClickListener {
-            val anim = AnimationUtils.loadAnimation(requireContext() , R.anim.slide_out)
+            val anim = AnimationUtils.loadAnimation(requireContext(), R.anim.slide_out)
             itemView.forEach { v ->
                 v.startAnimation(anim)
             }
-            hideDeleteDonebttns()
 
-            anim.setAnimationListener(object : Animation.AnimationListener{
+           hideDeleteDonebttns()
+
+            anim.setAnimationListener(object : Animation.AnimationListener {
                 override fun onAnimationStart(animation: Animation?) {
+
+
+
+
+//                        if (itemView[0] == recyclerView[0]) {
+//                            unchecked.forEach { v ->
+//                                v.startAnimation(anim2)
+//                               imageView6.startAnimation(anim3)
+//                                textView8.startAnimation(anim4)
+//
+//                            }
+//
+//
+//                        }
+
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {
                     list.forEach { task ->
 
                         task.checked = false
 
                     }
 
-
-                }
-
-                override fun onAnimationEnd(animation: Animation?) {
-                    itemView.forEach { v->
+                    itemView.forEach { v ->
                         v.alpha = 0F
                     }
                     mTaskViewModel.deleteUser(list)
+
+//                    unchecked.forEach {
+//                        it.startAnimation(anim2)
+//                    }
+
+                    Log.e("Delete" , "$list $List")
+
 
 
                 }
@@ -732,17 +763,22 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
             })
 
 
+            Log.e("Delete2 " , "$list $List")
+
     }
 
+        if (List.isEmpty()){
+hideDeleteDonebttns()
 
-        if (list.isEmpty()) {
-            hideDeleteDonebttns()
-        } else if (selected_item_funcs.isVisible){
+        }else if (selected_item_funcs.isVisible){
 
         }
+
         else {
-            showDeleteDonebtttns()
+showDeleteDonebtttns()
         }
+
+        Log.e("Delete 1" , "$list $List")
     }
     override fun unSelect(list: List<Taskie>) {
 
@@ -757,7 +793,7 @@ class HomeTaskScreenFragment: Fragment()  , TodoListAdapter.IOnClick , TodoListA
 
     }
 
-    override fun updateTask(task: Taskie) {
+    override fun updateTask(task: Taskie, itemView: View) {
         mTaskViewModel.updateTask(task)
         hideDeleteDonebttns()
     }

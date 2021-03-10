@@ -4,6 +4,7 @@ import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.RecyclerView
 import com.raywenderlich.ticky.R
 import com.raywenderlich.ticky.Taskie
@@ -59,6 +60,8 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
         holder.itemView.checkBox2.isChecked = true
         holder.itemView.selected_task.text = currentItem.title
         holder.unSelect(currentItem)
+
+
 
 
 
