@@ -4,10 +4,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:transitionName="@string/sharedchars"
+
+    >
 <androidx.core.widget.NestedScrollView
     layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionName="@string/sharedchars"
+
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/FirstScreenBackground">
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,9 +22,13 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FirstScreenBackground" >
+    android:background="@color/FirstScreenBackground"
+    android:transitionName="@string/sharedchars"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:transitionName="@string/sharedchars"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/FirstScreenBackground"
@@ -289,7 +298,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="38dp"
             android:scrollbars="none"
-            app:layout_constraintBottom_toTopOf="@+id/imageView6"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.058"
             app:layout_constraintStart_toStartOf="parent"
@@ -348,41 +357,8 @@
             app:srcCompat="@drawable/sort_task" />
 
 
-        <ImageView
-            android:id="@+id/imageView6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="38dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView5"
-            app:layout_constraintStart_toStartOf="@+id/imageView5"
-            app:layout_constraintTop_toBottomOf="@+id/recycle"
-            app:srcCompat="@drawable/rectangle_completed" />
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp"
-            android:fontFamily="@font/ubuntu_medium"
-            android:text="@string/completed"
-            android:textColor="#1e212b"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView6"
-            app:layout_constraintStart_toEndOf="@+id/imageView6"
-            app:layout_constraintTop_toTopOf="@+id/imageView6" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/checked_recycler"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
 
 

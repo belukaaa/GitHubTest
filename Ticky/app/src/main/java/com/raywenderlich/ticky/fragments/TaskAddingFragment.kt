@@ -623,7 +623,7 @@ class TaskAddingFragment: Fragment() , DatePickerDialog.OnDateSetListener {
 
 
         if(title.isNotEmpty()){
-            val task = Taskie(0, title, color, datetime, checked, selected, dateLong, sortingColor)
+            val task = Taskie(0, title, color, datetime, checked, selected, dateLong, sortingColor , 1)
             mTaskViewModel.addTask(task)
             setToDefs()
             Toast.makeText(requireContext(), " ADDED", Toast.LENGTH_LONG).show()
