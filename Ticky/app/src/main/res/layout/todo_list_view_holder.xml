@@ -6,7 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/viewholder_background">
+    android:background="@drawable/viewholder_background"
+    android:transitionName="@string/sharedchars"
+    >
 
     <TextView
         android:visibility="invisible"

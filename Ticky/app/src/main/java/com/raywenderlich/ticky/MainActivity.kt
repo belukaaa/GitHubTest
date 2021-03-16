@@ -32,8 +32,7 @@ import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     FirstScreenFragment.Click, TaskAddingFragment.BttnClicked, TaskAddingFragment.Task_addingButton,
-    HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting  {
-
+    HomeTaskScreenFragment.HomeTaskScreenButton , CustomDialogFragment.DialogSorting {
 
 
     private lateinit var factory: Factory
@@ -66,7 +65,6 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         startingApp()
 
 
-
     }
 
     private fun initViewModel(context: Context) {
@@ -80,14 +78,15 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
     }
 
-    private fun observe(){
+    private fun observe() {
         mTaskViewModel.colorLIveData.observe(this, Observer {
             if (it.isEmpty()) {
                 firstScreen()
             }
         })
     }
-    private fun observer(){
+
+    private fun observer() {
         mTaskViewModel.colorLIveData.observe(this, Observer {
             if (it.isNotEmpty()) {
                 homeScreen()
@@ -117,27 +116,24 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
             }
 
-        }
-        else {
+        } else {
             onboarrding()
         }
     }
 
 
-
-
     private fun onboarrding() {
 
-               supportFragmentManager
-               .beginTransaction()
-               .setCustomAnimations(
-                   R.anim.slide_in,
-                   R.anim.first_fragment_animation,
-                   R.anim.fade_in,
-                   R.anim.slide_out
-               )
-               .replace(R.id.frame_id, onboardingFrag)
-                .commit()
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.first_fragment_animation,
+                R.anim.fade_in,
+                R.anim.slide_out
+            )
+            .replace(R.id.frame_id, onboardingFrag)
+            .commit()
 
 
         mySharedPref.saveWhenAplicationFirstOpened(true)
@@ -154,6 +150,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
         })
 
     }
+
     private fun firstScreen() {
         supportFragmentManager
             .beginTransaction()
@@ -207,7 +204,6 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
     }
 
 
-
     override fun taskAdd() {
         supportFragmentManager
             .beginTransaction()
@@ -229,27 +225,25 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
             .commit()
     }
 
+
     override fun sortBy(sort: String) {
-        Log.e("DADE", "Movida -> $sort")
         if (sort == "Date added") {
             mTaskViewModel.getSelectedData().observe(this, Observer {
-                homeTaskScreenFragment.adapter.setData(it)
+                homeTaskScreenFragment.viewTypeAdapter.setData(it)
             })
             homeTaskScreenFragment.textView5.text = sort
 
             Toast.makeText(applicationContext, "Sorted by creation date", Toast.LENGTH_SHORT).show()
-        }
-        else if (sort == "Due date") {
+        } else if (sort == "Due date") {
             mTaskViewModel.getTasksByDate().observe(this, Observer {
-                homeTaskScreenFragment.adapter.setData(it)
+                homeTaskScreenFragment.viewTypeAdapter.setData(it)
             })
             homeTaskScreenFragment.textView5.text = sort
 
             Toast.makeText(applicationContext, "Sorted by date", Toast.LENGTH_SHORT).show()
-        }
-        else if (sort == "Color label") {
+        } else if (sort == "Color label") {
             mTaskViewModel.sortTasksByColor().observe(this, Observer {
-                homeTaskScreenFragment.adapter.setData(it)
+                homeTaskScreenFragment.viewTypeAdapter.setData(it)
             })
             homeTaskScreenFragment.textView5.text = sort
 
@@ -258,20 +252,21 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 
 
 
-//        CustomDialogFragment().show(supportFragmentManager , "Custom Dialog")
+//        CustomDialogFragment().show(supportFragmentManager, "Custom Dialog")
 //
 //        val dialog = CustomDialogFragment()
-//
-//
+
+
 //        date_added.setOnClickListener {
 //            val selectedID = radio_group.checkedRadioButtonId
 //            val radio = findViewById<RadioButton>(selectedID)
 //            val result = radio.text.toString()
 //            Toast.makeText(applicationContext, result, Toast.LENGTH_SHORT).show()
 //            dialog.dismiss()
-//
-//        }
+
+
     }
+}
 
 
 
@@ -298,7 +293,7 @@ class MainActivity : AppCompatActivity(), OnboardingFragment.ButtonClicked,
 //
 //    }
 
-}
+
 
 
 //   val data = repository.getData()

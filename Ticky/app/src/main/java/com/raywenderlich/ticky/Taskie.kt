@@ -14,6 +14,7 @@ class Taskie (
     var checked: Boolean = false,
     var selected: Boolean = false,
     var dateLong: Long? = null ,
-    var sortingColor : Int
+    var sortingColor : Int ,
+    var viewType : Int
 
 )

@@ -11,9 +11,9 @@ import com.raywenderlich.ticky.Taskie
 import com.raywenderlich.ticky.repository.TaskViewModel
 import kotlinx.android.synthetic.main.chechked_task_viewholder.view.*
 
-class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskViewHolder>() {
+class SelectedTaskAdapter(val unCheck : (task : Taskie ) -> Unit) : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskViewHolder>() {
 
-    private var selectedList = ArrayList<Taskie>()
+     var selectedList = ArrayList<Taskie>()
     private var unselectedList = ArrayList<Taskie>()
 
 
@@ -28,11 +28,10 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
                 task.selected = false
 
-                listener1?.updateTaskie(task)
+                unCheck.invoke(task)
 
 
 
-                notifyDataSetChanged()
 
             }
 
@@ -79,14 +78,7 @@ class SelectedTaskAdapter : RecyclerView.Adapter<SelectedTaskAdapter.SelectTaskV
 
     var listener : unSelectListener ? = null
 
-    var listener1 : updateTaskie ? = null
 
-    interface updateTaskie {
-        fun updateTaskie(task: Taskie)
-    }
-    fun setOnUpdateListener(listener: updateTaskie){
-        this.listener1 = listener
-    }
 
     interface unSelectListener {
         fun unSelectSelected(list: List<Taskie>)

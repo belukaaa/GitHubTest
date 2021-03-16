@@ -11,15 +11,18 @@ import com.raywenderlich.ticky.Taskie
 import kotlinx.android.synthetic.main.todo_list_view_holder.view.*
 
 
-class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder> () {
+class TodoListAdapter(val click : (list : List<Taskie> , itemView: ArrayList<View> , position : ArrayList<Int>) -> Unit
+                      ,val updateTask: (task: Taskie) -> Unit ) : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder> () {
     
     private var TaskieView = ArrayList<View>()
     private var uncheckedTaskieView = ArrayList<View>()
     private var taskListPosition = ArrayList<Int>()
     private var taskListPosition1 = ArrayList<Int>()
     private var taskList1 = ArrayList<Taskie>()
-    private var taskList = ArrayList<Taskie>()
+    var taskList = ArrayList<Taskie>()
     private var checkedTaskList = ArrayList<Taskie>()
+
+
     inner class TodoListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
 
         fun setData(task: Taskie , holder: TodoListViewHolder , position: Int) {
@@ -30,17 +33,18 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
                     itemView.checkBox.setButtonDrawable(R.drawable.ic_rectangle_completed)
                     taskList1.add(task)
                     TaskieView.add(itemView)
-                    listener?.onChecked(taskList1 , TaskieView)
+                    taskListPosition.add(adapterPosition)
+                    click.invoke(taskList1 , TaskieView , taskListPosition)
 
                 } else {
-
                     task.checked = false
                     holder.itemView.checkBox.isChecked = false
                     itemView.linearLayout.setBackgroundResource(R.drawable.viewholder_background)
                     itemView.checkBox.setButtonDrawable(R.drawable.unselected_task_checkbox)
                     taskList1.remove(task)
                     TaskieView.remove(itemView)
-                    listener?.onChecked(taskList1, TaskieView )
+                    taskListPosition.remove(adapterPosition)
+                    click.invoke(taskList1 , TaskieView , taskListPosition)
                 }
                     true
                 }
@@ -62,11 +66,12 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
             itemView.checkBox.setOnClickListener {
 
                 task.selected = true
-                listener2?.updateTask(task , itemView)
 
-                notifyDataSetChanged()
+
+                updateTask.invoke(task)
             }
         }
+
 
 
 
@@ -80,7 +85,11 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         )
 
     }
+
+
     override fun onBindViewHolder(holder: TodoListViewHolder, position: Int) {
+
+
 
         taskList1.clear()
 
@@ -123,7 +132,6 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
             holder.itemView.task_color_green.visibility = View.INVISIBLE
             holder.itemView.task_color_purple.visibility = View.INVISIBLE
             holder.itemView.task_color_rose.visibility = View.INVISIBLE
-
         }
 
         if (currentItem.datetime == "") {
@@ -133,10 +141,10 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
             holder.itemView.task_date.text = currentItem.datetime
         }
 
-
         holder.setIsRecyclable(false)
 
     }
+
 
 
     override fun getItemCount(): Int = taskList.size
@@ -149,7 +157,6 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
         this.taskList.addAll(task)
         notifyDataSetChanged()
     }
-
     var listener22 : UpdateAllTasks? = null
     var listener2 : UpdateTask? = null
 
@@ -159,9 +166,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
     interface UpdateTask {
         fun updateTask(task: Taskie , itemView: View)
     }
-    fun updateAllTasks(listener22 : UpdateAllTasks){
-        this.listener22 = listener22
-    }
+
     fun updateTask(listener2 : UpdateTask){
         this.listener2 = listener2
     }
@@ -169,7 +174,7 @@ class TodoListAdapter : RecyclerView.Adapter<TodoListAdapter.TodoListViewHolder>
 
 
     interface IOnClick {
-        fun onChecked(list: List<Taskie>, itemView: ArrayList<View> )
+        fun onChecked(list: List<Taskie>, itemView: ArrayList<View>, position: Int)
     }
 
     interface Iunselect {
