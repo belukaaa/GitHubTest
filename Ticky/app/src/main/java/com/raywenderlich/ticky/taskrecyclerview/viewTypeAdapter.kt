@@ -215,7 +215,8 @@ class viewTypeAdapter(val click: (list: List<Taskie>, itemView: ArrayList<View>,
             Log.e("position ", "${completedlist[position]}")
 
 
-            holder.itemView.checkBox.isChecked = false
+            
+                holder.itemView.checkBox.isChecked = false
 
 
 
@@ -229,7 +230,7 @@ class viewTypeAdapter(val click: (list: List<Taskie>, itemView: ArrayList<View>,
 //                holder.itemView.task_color_green.visibility = View.VISIBLE
 //            } else if (currentItem.color == "#64d2ff") {
 //                holder.itemView.task_color_pachtiblue.visibility = View.VISIBLE
-//            } else if (currentItem.color == "#0984ff") {
+//            } else if (currentItem.color == "#0984ff") {fdfdf
 //                holder.itemView.task_color_blue.visibility = View.VISIBLE
 //            } else if (currentItem.color == "#5e5ce6") {
 //                holder.itemView.task_color_muqiblue.visibility = View.VISIBLE
